@@ -1,0 +1,1 @@
+# velora_jewelry
