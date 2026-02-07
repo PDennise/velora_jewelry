@@ -1,10 +1,26 @@
 # Velora Jewelry
 
-## Project Overview
+1. Project Overview
+2. UX & User Stories
+3. Design & Wireframes
+4. Database Schema
+5. Features
+6. E-commerce & Payments
+7. SEO
+8. Marketing
+9. Security Features
+10. Technologies Used
+11. Testing
+12. Deployment
+13. Credits
+
+## 1. Project Overview
 A full-stack Django e-commerce application for purchasing jewelry products.
 
 ## Business Model
 Single-payment e-commerce model using Stripe.
+
+## 2. UX & User Stories
 
 ## User Stories
 
@@ -41,3 +57,25 @@ Single-payment e-commerce model using Stripe.
 - As a site owner, I want the site to be search-engine optimised so that more users can find it online.
 - As a user, I want to sign up for a newsletter so that I can receive updates and promotions.
 - As a site owner, I want to promote my products through a Facebook Business Page so that I can increase brand awareness.
+
+## 3. Design & Wireframes
+
+## 4. Database Schema
+
+## 5. Features
+
+## 6. E-commerce & Payments
+
+## 7. SEO
+
+## 8. Marketing
+
+## 9. Security Features
+
+## 10. Technologies Used
+
+## 11. Testing
+
+## 12. Deployment
+
+## 13. Credits
