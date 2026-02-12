@@ -23,5 +23,5 @@ urlpatterns = [
     path("shop/", include("shop.urls")),    # Shop app
     path('users/', include('users.urls')),  # Users app
     path('cart/', include('cart.urls')),    # Cart app
-
+    path('page/', include('page.urls')),    # Page app
 ]
