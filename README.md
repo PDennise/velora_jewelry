@@ -94,6 +94,27 @@ Future expansion may include:
 
 ## 8. Marketing
 
+### Target Audience
+Velora Jewelry is designed for consumers who appreciate minimalist and elegant jewelry at an affordable price point.
+
+**Primary Target Audience**
+- Women aged 18–45
+- Interested in fashion, accessories, and modern aesthetics
+- Active on social media platforms such as Instagram and Facebook
+- Online shoppers comfortable with digital payments
+
+**Secondary Target Audience**
+- Individuals purchasing jewelry as gifts
+- Budget-conscious consumers seeking stylish yet affordable pieces
+- Young professionals looking for everyday elegant accessories
+
+**Customer Needs**
+The target audience values:
+- Secure and seamless online shopping
+- Clear product descriptions and high-quality images
+- Trustworthy payment processing
+- Easy account management and order tracking
+
 ## 9. Security Features
 
 ## 10. Technologies Used
