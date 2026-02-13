@@ -17,8 +17,32 @@
 ## 1. Project Overview
 A full-stack Django e-commerce application for purchasing jewelry products.
 
-## Business Model
-Single-payment e-commerce model using Stripe.
+### Business Model
+Velora Jewelry operates under a Business-to-Consumer (B2C) e-commerce model.
+The platform allows customers to browse and purchase jewelry products directly through a secure online checkout system.
+
+**Revenue Model**
+- Single-payment transactions via Stripe
+- Direct online product sales
+- No subscription model currently implemented
+
+**Value Proposition**
+- Affordable, stylish, and modern jewelry
+- Secure and streamlined checkout process
+- Easy account management and order tracking
+
+**Growth Strategy**
+Future expansion may include:
+- Limited-edition collections
+- Email marketing campaigns
+- Social media promotions
+- Potential subscription-based VIP offers
+
+### Business Goals
+- Sell handcrafted jewelry products online (B2C model)
+- Provide a seamless and secure checkout experience
+- Build brand visibility through SEO and social media marketing
+- Collect customer emails for future promotions and product launches
 
 ## 2. UX & User Stories
 
