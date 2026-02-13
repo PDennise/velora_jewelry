@@ -273,6 +273,23 @@ Future expansion may include:
 
 ## 4. Database Schema
 
+The application uses a **relational database** to support authentication, product management, and secure order processing.
+
+The database will include the following core models:
+
+- **User** (Django authentication model)
+- **UserProfile**
+- **Category**
+- **Product**
+- **Order**
+- **OrderItem**
+- **Newsletter** (optional feature)
+
+All relationships will be enforced using **foreign key constraints** and follow relational database best practices.
+
+A detailed schema description and Entity Relationship Diagram (ERD) will be included once model development is complete.
+
+
 ## 5. Features
 
 ## 6. E-commerce & Payments
