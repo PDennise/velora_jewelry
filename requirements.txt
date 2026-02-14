@@ -1,5 +1,6 @@
 asgiref==3.11.1
-Django==4.2.10
+Django==6.0.2
+django-allauth==65.14.3
 pillow==12.1.1
 sqlparse==0.5.5
 whitenoise==6.11.0
