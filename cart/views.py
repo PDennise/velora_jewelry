@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from shop.models import Product
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def add_to_cart(request, product_id):
@@ -38,3 +39,8 @@ def cart_detail(request):
         'cart_items': cart_items,
         'total': total
     })
+
+@login_required
+def checkout(request):
+    # checkout logic
+    return render(request, 'cart/checkout.html')
