@@ -1,6 +1,10 @@
 asgiref==3.11.1
-Django==6.0.2
+dj-database-url==3.1.1
+Django==4.2.16
 django-allauth==65.14.3
+gunicorn==25.1.0
+packaging==26.0
 pillow==12.1.1
+psycopg2-binary==2.9.11
 sqlparse==0.5.5
 whitenoise==6.11.0
