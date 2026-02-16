@@ -1,0 +1,1 @@
+web: gunicorn velora_jewelry.wsgi:application
