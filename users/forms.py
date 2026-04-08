@@ -3,12 +3,21 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-class ARegistrationForm(UserCreationForm):
-    first_name = forms.CharField(max_length=100, required=True)
-    last_name = forms.CharField(max_length=100, required=True)
+class CustomUserCreationForm(UserCreationForm):
+    first_name = forms.CharField(
+        max_length=30,
+        required=True,
+        label='First Name'
+    )
+    last_name = forms.CharField(
+        max_length=30,
+        required=True,
+        label='Last Name'
+    )
     email = forms.EmailField(
         required=True,
-        widget=forms.EmailInput(attrs={'class': 'form-control'})
+        widget=forms.EmailInput(attrs={'class': 'form-control'},),
+        label='Email'
     )
 
     class Meta:

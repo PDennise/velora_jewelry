@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm   # Built-in Django login, logout form
+from django.contrib.auth.forms import AuthenticationForm                     # Built-in Django login, logout form
 from django.contrib.auth import login, logout                                # Functions to log users in and out
 from django.contrib import messages                                          # Django's built-in messaging framework to show success or error messages to users
-
+from .forms import CustomUserCreationForm 
 
 # Create your views here.
 def profile(request):
@@ -15,7 +15,7 @@ def profile(request):
 
 def register(request):
     if request.method == 'POST':                                            # Check if the form was submitted
-        form = UserCreationForm(request.POST)                               # Bind POST data to the form
+        form = CustomUserCreationForm(request.POST)                         # Bind POST data to the form
         if form.is_valid():                                                 # Validate the form data
             user = form.save()                                              # Save the new user to the database
             login(request, user)                                            # Log the user in immediately
@@ -24,7 +24,7 @@ def register(request):
         else:
             messages.error(request, 'There was an error with your registration. Please check the form.')  # Error message
     else:
-        form = UserCreationForm()                                           # Create an empty user registration form
+        form = CustomUserCreationForm()                                     # Create an empty user registration form
     return render(request, 'users/register.html', {'form': form})           # Render the registration template with the form
 
 def user_login(request):
