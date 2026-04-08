@@ -5,6 +5,14 @@ from django.contrib import messages                                          # D
 
 
 # Create your views here.
+def profile(request):
+    """ Display the user's profile. """
+
+    template = 'profiles/profile.html'
+    context = {}
+    
+    return render(request, template, context)
+
 def register(request):
     if request.method == 'POST':                                            # Check if the form was submitted
         form = UserCreationForm(request.POST)                               # Bind POST data to the form

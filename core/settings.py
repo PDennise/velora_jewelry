@@ -48,10 +48,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'shop',
-    'users',
+    'users.apps.UsersConfig',
     'cart',
     'page',
     'django.contrib.sites',
+    'django_countries',
 
     'allauth',
     'allauth.account',
