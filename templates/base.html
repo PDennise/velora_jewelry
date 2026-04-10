@@ -30,7 +30,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">VELORA JEWELRY</a>
+            <a class="navbar-brand fw-bold" href="{% url 'home:homepage' %}">VELORA JEWELRY</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -38,7 +38,7 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
 
-                <form method="GET" action="" class="d-flex me-4">
+                <form method="GET" action="{% url 'shop:product-list' %}" class="d-flex me-4">
                     <div class="input-group">
                         <input class="form-control" type="text" name="q" placeholder="Search">
                         <button class="btn btn-dark border border-black rounded-0" type="submit">
@@ -51,35 +51,39 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="{% url 'home:homepage' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="{% url 'page:about' %}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Shop</a>
+                    <a class="nav-link" href="{% url 'page:contact' %}">Contact</a>
                 </li>
-
-                <a class="nav-link" href="#">
-                    Cart
-                    {% if request.session.cart %}
-                    <span class="badge bg-danger">{{ request.session.cart|length }}</span>
-                    {% endif %}
-                </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'shop:product-list' %}">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                        Cart
+                        {% if request.session.cart %}
+                        <span class="badge bg-danger">{{ request.session.cart|length }}</span>
+                        {% endif %}
+                    </a>
+                </li>
 
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="#">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="#">Logout</a>
+                    <a class="nav-link text-danger" href="{% url 'users:logout' %}">Logout</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="{% url 'users:login' %}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link" href="{% url 'users:register' %}">Register</a>
                 </li>
                 {% endif %}
 
@@ -89,6 +93,15 @@
 
     <!-- Main Content -->
     <main class="container py-4">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger mt-3">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
         {% block content %}
         {% endblock %}
     </main>
