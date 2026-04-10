@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm                     # Built-in Django login, logout form
-from django.contrib.auth import login, logout                                # Functions to log users in and out
-from django.contrib import messages                                          # Django's built-in messaging framework to show success or error messages to users
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 from .forms import CustomUserCreationForm 
+from django.contrib.auth.models import User
 
 # Create your views here.
 def profile(request):
@@ -18,9 +18,13 @@ def register(request):
         form = CustomUserCreationForm(request.POST)                         # Bind POST data to the form
         if form.is_valid():                                                 # Validate the form data
             user = form.save()                                              # Save the new user to the database
-            login(request, user)                                            # Log the user in immediately
+            login(                                                          # Log the user in immediately
+                request,
+                user,
+                backend='django.contrib.auth.backends.ModelBackend'
+            )
             messages.success(request, 'Your account has been created successfully!') # Success message
-            return redirect('shop:product_list')                            # Redirect to the page after successful registration
+            return redirect('home:homepage')                            # Redirect to the page after successful registration
         else:
             messages.error(request, 'There was an error with your registration. Please check the form.')  # Error message
     else:
@@ -29,19 +33,30 @@ def register(request):
 
 def user_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)               # Bind POST data to the form
-        if form.is_valid():                                                 # Validate the form data
-            user = form.get_user()                                          # Get the authenticated user object
-            login(request, user)                                            # Log the user in (start a session) 
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user_obj = User.objects.filter(email=email).first()             # Email filter
+
+        if not user_obj:
+            messages.error(request, 'Invalid email or password.')
+            return render(request, 'users/login.html')
+    
+        user = authenticate(
+            request,
+            username=user_obj.username,
+            password=password
+        )
+
+        if user is not None:                                                # Validate the form data
+            login(request, user)                                            # Log the user in (start a session)
             messages.success(request, f'welcome back, {user.username}!')    # Success message
-            next_url = request.GET.get('next', 'home')                      # Use 'next' from GET params, default to home
-            return redirect(next_url)
+            return redirect('home:homepage')
         else:
-            messages.error(request, 'Invalid username or password.')        # Error message                                       # Redirect to the homepage after successful login
-    else:
-        form = AuthenticationForm()
-    return render(request, 'users/login.html', {'form': form})
+            messages.error(request, 'Invalid email or password.')        # Error message                                       # Redirect to the homepage after successful login
+
+    return render(request, 'users/login.html')
 
 def user_logout(request):
     logout(request)
-    return redirect('home')                                                 # Redirect to the homepage after successful logout
+    return redirect('home:homepage')                                                 # Redirect to the homepage after successful logout
