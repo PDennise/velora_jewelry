@@ -6,33 +6,73 @@
   {% csrf_token %}
 
   <div class="mb-3">
-    {{ form.first_name.label_tag }}
+    <label for="{{ form.first_name.id_for_label }}">
+      First Name <span class="text-danger">*</span>
+    </label>
     {{ form.first_name }}
+    <div class="text-danger">
+      {{ form.first_name.errors }}
+    </div>
   </div>
 
   <div class="mb-3">
-    {{ form.last_name.label_tag }}
+    <label for="{{ form.last_name.id_for_label }}">
+      Last Name <span class="text-danger">*</span>
+    </label>
     {{ form.last_name }}
+    <div class="text-danger">
+      {{ form.last_name.errors }}
+    </div>
   </div>
 
   <div class="mb-3">
-    {{ form.username.label_tag }}
+    <label for="{{ form.username.id_for_label }}">
+      User Name <span class="text-danger">*</span>
+    </label>
     {{ form.username }}
+    <div class="text-danger">
+      {{ form.username.errors }}
+    </div>
   </div>
 
   <div class="mb-3">
-    {{ form.email.label_tag }}
+    <label for="{{ form.email.id_for_label }}">
+      Email <span class="text-danger">*</span>
+    </label>
     {{ form.email }}
+    <div class="text-danger">
+      {{ form.email.errors }}
+    </div>
   </div>
 
   <div class="mb-3">
-    {{ form.password1.label_tag }}
+    <label for="{{ form.phone.id_for_label }}">
+      Phone Number <span class="text-danger">*</span>
+    </label>
+    {{ form.phone }}
+    <div class="text-danger">
+      {{ form.phone.errors }}
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="{{ form.password1.id_for_label }}">
+      Password <span class="text-danger">*</span>
+    </label>
     {{ form.password1 }}
+    <div class="text-danger">
+      {{ form.password1.errors }}
+    </div>
   </div>
 
   <div class="mb-3">
-    {{ form.password2.label_tag }}
+    <label for="{{ form.password2.id_for_label }}">
+      Password Confirmation <span class="text-danger">*</span>
+    </label>
     {{ form.password2 }}
+    <div class="text-danger">
+      {{ form.password2.errors }}
+    </div>
   </div>
 
   <button type="submit" class="btn btn-primary">Register</button>
