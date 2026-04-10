@@ -3,12 +3,14 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import CustomUserCreationForm 
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def profile(request):
     """ Display the user's profile. """
 
-    template = 'profiles/profile.html'
+    template = 'users/profile.html'
     context = {}
     
     return render(request, template, context)
