@@ -72,13 +72,34 @@
                 </li>
 
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'users:profile' %}">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-danger" href="{% url 'users:logout' %}">Logout</a>
-                </li>
-                {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fw-semibold" href="#" id="dropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user me-1"></i>
+                        {{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li>
+                            <span class="dropdown-item-text text-muted small">
+                                {{ user.email }}
+                            </span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'users:profile' %}">
+                                <i class="fa-solid fa-id-card me-2"></i>Profile</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="{% url 'users:logout' %}">
+                                <i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
+                        </li>
+                    </ul>
+                    {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'users:login' %}">Login</a>
                 </li>
@@ -95,11 +116,11 @@
     <main class="container py-4">
 
         {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-danger mt-3">
-                    {{ message }}
-                </div>
-            {% endfor %}
+        {% for message in messages %}
+        <div class="alert alert-danger mt-3">
+            {{ message }}
+        </div>
+        {% endfor %}
         {% endif %}
 
         {% block content %}
