@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'cart',
     'page',
+    'orders',
     'django.contrib.sites',
     'django_countries',
 
