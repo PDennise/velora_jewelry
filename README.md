@@ -325,6 +325,29 @@ The target audience values:
 
 ## 11. Testing
 
+### User Authentication Testing
+
+#### Loged-out state (before login)
+- The navigation menu correctly displays Login and Register links for unauthenticated users.
+
+[screenshot](https://drive.google.com/file/d/1mqlBWFFwZaZdQe100i7XVMaQUk0YqcPo/view?usp=share_link)
+
+#### Logged-in state
+- After successful login, the user’s username is displayed in the navbar dropdown along with Profile and Logout options.
+
+[screenshot](https://drive.google.com/file/d/1EEaSUUlewOpeWiI0gIe1U0ljk4kdk5hN/view?usp=share_link)
+
+#### Logged-out state (after logout)
+- After logout, the navbar updates immediately and displays **Login** and **Register** again.
+
+[screenshot](https://drive.google.com/file/d/14uaQCj-2Pfpt5hdfE8eNpUVURMYbTs1g/view?usp=share_link)
+
+#### Unauthorized route protection
+- After logout, the navbar updates immediately and displays Login and Register again.
+- The same login page is shown when an unauthenticated user manually attempts to access /profile, confirming that protected routes are restricted.
+
+[screenshot](https://drive.google.com/file/d/14uaQCj-2Pfpt5hdfE8eNpUVURMYbTs1g/view?usp=share_link)
+
 ## 12. Deployment
 
 ## 13. Credits
