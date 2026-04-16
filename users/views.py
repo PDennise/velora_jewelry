@@ -4,16 +4,25 @@ from django.contrib import messages
 from .forms import CustomUserCreationForm 
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .models import UserProfile
+from orders.models import Order
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+import json
 
 # Create your views here.
 @login_required
 def profile(request):
     """ Display the user's profile. """
 
-    template = 'users/profile.html'
-    context = {}
+    profile = UserProfile.objects.get(user=request.user)
+    orders = Order.objects.filter(user=request.user).order_by("-date")
     
-    return render(request, template, context)
+    return render(request, 'users/profile.html', {
+        "profile": profile,
+        "orders": orders
+    })
+    
 
 def register(request):
     if request.method == 'POST':                                            # Check if the form was submitted
@@ -62,3 +71,17 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('home:homepage')                                                 # Redirect to the homepage after successful logout
+
+@login_required
+@require_POST
+def update_profile(request):
+    data = json.loads(request.body)
+
+    profile = UserProfile.objects.get(user=request.user)
+    profile.phone = data.get("phone")
+    profile.save()
+
+    return JsonResponse({
+        "success": True,
+        "phone": profile.phone
+    })
