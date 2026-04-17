@@ -15,6 +15,12 @@ class ProductListView(ListView):                # Get the table from DB and send
         category_id = self.request.GET.get("category") # Makes category filter
         product_type = self.request.GET.get("type")
         search_query = self.request.GET.get("q")
+        sort = self.request.GET.get("sort")
+
+        if sort == "price_asc":
+            queryset = queryset.order_by("price")
+        elif sort == "price_desc":
+            queryset = queryset.order_by("-price")
 
         if category_id:
             queryset = queryset.filter(category_id=category_id) 
@@ -35,6 +41,7 @@ class ProductListView(ListView):                # Get the table from DB and send
         context["selected_category"] = int(category) if category else None  # Convert category ID from string to int for template comparison
         context["selected_type"] = self.request.GET.get("type", "")
         context["search_query"] = self.request.GET.get("q", "")
+        context["selected_sort"] = self.request.GET.get("sort", "")
         return context
 
 class ProductDetailView(DetailView):            # Get one product by pk from DB and send it to the detail page
