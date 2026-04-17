@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
 {% load static %}
-<h1>{{ product.name }}</h1>
-<p>{{ product.description }}</p>
-<p>Price: ${{ product.price }}</p>
+{% block title %}Product Page{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <a href="{% url 'shop:product-list' %}" class="btn btn-outline-secondary btn-sm">Back to Shop</a>
+</div>
+
+<div class="row g-4">
+    <div class="col-12 col-md-6">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}">
+        {% else %}
+        <div class="bg-light text-muted d-flex align-items-center justify-content-center rounded"
+            style="min-height: 300px;">
+            <img src="{% static 'images/placeholder.png' %}" class="img-fluid">
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-12 col-md-6">
+        <h1 class="h2">{{ product.name }}</h1>
+        <p class="h4 mb-3">€{{ product.price }}</p>
+        {% if product.category %}
+        <p class="mb-2"><strong>Category:</strong> {{ product.category.name }}</p>
+        {% endif %}
+        {% if product.product_type %}
+        <p class="mb-3"><strong>Type:</strong> {{ product.get_product_type_display }}</p>
+        {% endif %}
+        <p class="text-muted">{{ product.short_description }}</p>
+        <hr>
+        <p>{{ product.description }}</p>
+    </div>
+</div>
+
+{% endblock %}
