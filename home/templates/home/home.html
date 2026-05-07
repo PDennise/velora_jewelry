@@ -1,11 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Velora Jewelry</title>
-</head>
-<body>
+{% block title %}Velora Jewelry{% endblock %}
+{% block content %}
+
     <h1>Welcome to Velora Jewelry</h1>
     <h2>Products</h2>
     <ul>
@@ -15,5 +12,4 @@
         <li>No products yet.</li>
     {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

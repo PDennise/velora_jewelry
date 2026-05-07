@@ -4,10 +4,12 @@
 
 {% block content %}
 <div class="mb-3">
-    <a href="{% url 'shop:product-list' %}" class="btn btn-outline-secondary btn-sm">Back to Shop</a>
+    <a href="{% url 'shop:product-list' %}" class="btn btn-outline-secondary btn-sm">← Back to Shop</a>
 </div>
 
 <div class="row g-4">
+
+    <!-- IMAGE -->
     <div class="col-12 col-md-6">
         {% if product.image %}
         <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}">
@@ -18,18 +20,50 @@
         </div>
         {% endif %}
     </div>
+
+    <!-- INFO -->
     <div class="col-12 col-md-6">
         <h1 class="h2">{{ product.name }}</h1>
+
+        <!-- SKU -->
+          {% if product.sku %}
+            <p class="text-muted small">SKU: {{ product.sku }}</p>
+        {% endif %}
+
         <p class="h4 mb-3">€{{ product.price }}</p>
+
+        <!-- Category -->
         {% if product.category %}
         <p class="mb-2"><strong>Category:</strong> {{ product.category.name }}</p>
         {% endif %}
+
+        <!-- Type -->
         {% if product.product_type %}
         <p class="mb-3"><strong>Type:</strong> {{ product.get_product_type_display }}</p>
         {% endif %}
+
+        <!-- Stock -->
+         {% if product.stock %}
+            {% if product.stock > 0 %}
+                <p class="text-success">In stock ({{ product.stock }})</p>
+            {% else %}
+                <p class="text-danger">Out of stock</p>
+            {% endif %}
+        {% endif %}
+
         <p class="text-muted">{{ product.short_description }}</p>
+
         <hr>
+
         <p>{{ product.description }}</p>
+
+        <!-- 🛒 ADD TO CART -->
+        <form method="POST" action="{% url 'cart:add_to_cart' product.id %}">
+            {% csrf_token %}
+            <button class="btn btn-dark mt-3">
+                Add to Cart
+            </button>
+        </form>
     </div>
 </div>
 
