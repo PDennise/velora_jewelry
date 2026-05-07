@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-
-<h1>Your Cart</h1>
+{% block title %}Your Cart{% endblock %}
+{% block content %}
 {% if cart_items %}
-    ... basic table ...
+... basic table ...
 {% else %}
-    <p>Your cart is empty.</p>
+<p>Your cart is empty.</p>
 {% endif %}
+{% endblock %}
