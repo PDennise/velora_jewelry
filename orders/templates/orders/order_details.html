@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 border-0">
+        <div class="card-body">
+            <h2>Order Details</h2>
+
+            <p><strong>Product:</strong> {{ order.product.name }}</p>
+            <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+            <p><strong>Price:</strong> €{{ order.price }}</p>
+            <p><strong>Date:</strong> {{ order.date|date:"d M Y" }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
