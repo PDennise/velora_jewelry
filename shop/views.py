@@ -30,7 +30,7 @@ class ProductListView(ListView):                # Get the table from DB and send
         else:
             queryset = queryset.order_by("-created_at")
 
-        if category_id:
+        if category_id not in [None, "", "None"]:
             queryset = queryset.filter(category_id=category_id) 
         if product_type:
             queryset = queryset.filter(product_type=product_type)
@@ -49,7 +49,7 @@ class ProductListView(ListView):                # Get the table from DB and send
 
         context["categories"] = Category.objects.all() # Send to templates
         context["product_type_choices"] = Product.PRODUCT_TYPE_CHOICES
-        context["selected_category"] = int(category) if category else None  # Convert category ID from string to int for template comparison
+        context["selected_category"] = int(category) if category not in [None, "", "None"] else None  # Convert category ID from string to int for template comparison
         context["selected_type"] = self.request.GET.get("type", "")
         context["search_query"] = self.request.GET.get("q", "")
         context["selected_sort"] = self.request.GET.get("sort", "")
