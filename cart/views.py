@@ -4,6 +4,11 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    if product.stock < 1:
+        return redirect('shop:product-detail', pk=product.pk, slug=product.slug)
+    
     cart = request.session.get('cart', {})               # Get the current cart from session, or create an empty one if it doesn't exist
 
     product = get_object_or_404(Product, id=product_id)  # Retrieve the product object or return 404 if not found
@@ -14,7 +19,11 @@ def add_to_cart(request, product_id):
         cart[str(product_id)] = 1 
 
     request.session['cart'] = cart                       # Save the updated cart back into the session
-    return redirect('shop:product_list')                 # Redirect the user back to the product list page
+    return redirect('' \
+        'shop:product-detail',                           # Stays the user in the product detail page
+        pk=product.pk,
+        slug=product.slug
+        )
 
 
 def cart_detail(request):
