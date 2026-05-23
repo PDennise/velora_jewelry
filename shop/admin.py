@@ -8,6 +8,7 @@ class ProductAdmin(admin.ModelAdmin):
         "name",
         "category",
         "product_type",
+        "featured",
         "price",
         "stock",
         "created_at",
@@ -30,4 +31,4 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("name",)
+    list_display = ["name",]

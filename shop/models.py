@@ -44,6 +44,7 @@ class Product(models.Model):
     short_description = models.CharField(max_length=255, blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
+    featured = models.BooleanField(default=False)
     
     image = models.ImageField(
         upload_to="products/",
