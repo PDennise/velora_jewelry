@@ -1,0 +1,76 @@
+document.addEventListener("DOMContentLoaded", function () {
+
+    const navbar = document.getElementById("mainNavbar");
+
+    window.addEventListener("scroll", () => {
+
+        console.log(window.scrollY);
+
+        if (window.scrollY > 80) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+
+    });
+})
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const featuredSlider = document.querySelector('.featured-slider');
+
+    if(featuredSlider){
+
+        new Flickity(featuredSlider, {
+
+            cellAlign: 'left',
+
+            contain: false,
+
+            wrapAround: true,
+
+            autoPlay: 3000,
+
+            pauseAutoPlayOnHover: true,
+
+            selectedAttraction: 0.04,
+
+            friction: 0.45,
+
+            prevNextButtons: true,
+
+            pageDots: true,
+
+            percentPosition: false,
+            
+            resize: true,
+            
+            imagesLoaded: true,
+
+        });
+
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("newsletterBtn");
+    const input = document.getElementById("newsletterEmail");
+    const msg = document.getElementById("newsletterMsg");
+
+    if (btn) {
+        btn.addEventListener("click", function () {
+            const email = input.value.trim();
+
+            if (!email || !email.includes("@")) {
+                msg.textContent = "Please enter a valid email address.";
+                msg.className = "newsletter-msg error";
+                return;
+            }
+
+            // Hook this up to your Django view/endpoint
+            msg.textContent = "Thank you for subscribing!";
+            msg.className = "newsletter-msg success";
+            input.value = "";
+        });
+    }
+});

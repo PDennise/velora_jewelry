@@ -30,17 +30,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
-const navbar = document.getElementById("mainNavbar");
-
-window.addEventListener("scroll", () => {
-
-    console.log(window.scrollY);
-
-    if (window.scrollY > 80) {
-        navbar.classList.add("scrolled");
-    } else {
-        navbar.classList.remove("scrolled");
-    }
-
-});

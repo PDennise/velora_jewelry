@@ -56,6 +56,8 @@
 
                         <h2>WOMEN</h2>
 
+                        <div class="gold-line"></div>
+
                         <span>Shop Collection</span>
 
                     </div>
@@ -75,6 +77,8 @@
                     <div class="category-overlay">
 
                         <h2>MEN</h2>
+
+                        <div class="gold-line"></div>
 
                         <span>Shop Collection</span>
 
@@ -97,6 +101,9 @@
 
                         <h2>BESTSELLERS</h2>
 
+                        <div class="gold-line"></div>
+
+
                         <span>Discover Now</span>
 
                     </div>
@@ -118,17 +125,17 @@
 
         <div class="section-header">
 
-            <p>OUR COLLECTION</p>
-
             <h2>Featured Products</h2>
+
+            <div class="gold-line"></div>
 
         </div>
 
-        <div class="row g-4">
+        <div class="featured-slider">
 
             {% for product in featured_products %}
 
-            <div class="col-lg-3 col-md-6">
+            <div class="product-slide">
 
                 <div class="product-card">
 
@@ -139,11 +146,11 @@
 
                         <div class="product-icons">
 
-                            <a href="#">
+                            <a href="{% url 'cart:cart_detail' %}">
                                 <i class="fa-regular fa-heart"></i>
                             </a>
 
-                            <a href="#">
+                            <a href="{% url 'cart:cart_detail' %}">
                                 <i class="fa-solid fa-bag-shopping"></i>
                             </a>
 
