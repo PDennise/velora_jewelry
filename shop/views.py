@@ -27,11 +27,13 @@ class ProductListView(ListView):                # Get the table from DB and send
             queryset = queryset.order_by("price")
         elif sort == "price_desc":
             queryset = queryset.order_by("-price")
+        elif sort == "bestseller":
+            queryset = queryset.filter(featured=True)
         else:
             queryset = queryset.order_by("-created_at")
 
         if category_id not in [None, "", "None"]:
-            queryset = queryset.filter(category_id=category_id) 
+            queryset = queryset.filter(category__name__iexact=category_id) 
         if product_type:
             queryset = queryset.filter(product_type=product_type)
         if search_query:
