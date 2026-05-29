@@ -15,7 +15,7 @@ class ProductListView(ListView):                # Get the table from DB and send
     # Apply filters based on query parameters (category, type, search)
     def get_queryset(self):
         queryset = Product.objects.select_related("category").all()
-        category_id = self.request.GET.get("category") # Makes category filter
+        category_slug = self.request.GET.get("category")
         product_type = self.request.GET.get("type")
         search_query = self.request.GET.get("q")    
         sort = self.request.GET.get("sort")
@@ -32,8 +32,9 @@ class ProductListView(ListView):                # Get the table from DB and send
         else:
             queryset = queryset.order_by("-created_at")
 
-        if category_id not in [None, "", "None"]:
-            queryset = queryset.filter(category__name__iexact=category_id) 
+
+        if category_slug not in [None, "", "None"]:
+            queryset = queryset.filter(category__slug=category_slug ) 
         if product_type:
             queryset = queryset.filter(product_type=product_type)
         if search_query:
@@ -68,3 +69,4 @@ class ProductDetailView(DetailView):            # Get one product by pk from DB 
             pk=self.kwargs["pk"],
             slug=self.kwargs["slug"]
     )
+    
