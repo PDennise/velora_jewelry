@@ -82,6 +82,13 @@ body {
     padding: 0;
 
     box-shadow: none;
+
+    text-decoration: none !important;
+}
+
+.icon-btn i{
+    display: block;
+    line-height: 1;
 }
 
 .icon-btn:hover{
@@ -98,6 +105,41 @@ body {
 
 .custom-navbar.scrolled .custom-logo span{
     color: #c9a14a !important;
+}
+
+
+/* Dropdown menu */
+
+.dropdown-menu{
+    border: none;
+    border-radius: 12px;
+    padding: 10px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.dropdown-item{
+    font-size: 0.95rem;
+    padding: 10px 18px;
+}
+
+.dropdown-item:hover{
+    background: #f8f8f8;
+    color: #d4af37;
+}
+.dropdown-toggle::after{
+    display: none !important;
+}
+
+.icon-btn.dropdown-toggle{
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.icon-btn.dropdown-toggle:focus,
+.icon-btn.dropdown-toggle:active{
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 /* Cart Badge */
