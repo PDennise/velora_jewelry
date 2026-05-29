@@ -14,7 +14,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-     <!-- Flickity CSS -->
+    <!-- Flickity CSS -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 
 
@@ -150,10 +150,10 @@
                     <div class="footer-logo">VELORA <span>JEWELRY</span></div>
                     <p>Timeless jewelry for every moment. Crafted with passion, worn with pride.</p>
                     <div class="footer-socials">
-                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+                        <a href="https://www.instagram.com/" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://x.com/" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://pinterest.com/" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
                     </div>
                 </div>
 
@@ -162,10 +162,14 @@
                     <h4>SHOP</h4>
                     <ul>
                         <li><a href="{% url 'shop:product-list' %}">All Products</a></li>
-                        <li><a href="{% url 'shop:product-list' %}?category=necklaces">Necklaces</a></li>
-                        <li><a href="{% url 'shop:product-list' %}?category=rings">Rings</a></li>
-                        <li><a href="{% url 'shop:product-list' %}?category=earrings">Earrings</a></li>
-                        <li><a href="{% url 'shop:product-list' %}?category=bracelets">Bracelets</a></li>
+                        {% for category in categories %}
+                        <li><a href="{% url 'shop:product-list' %}?category={{ category.slug }}">{{ category.name }}</a>
+                        </li>
+                        {% endfor %}
+                        <li><a href="{% url 'shop:product-list' %}?type=necklace">Necklaces</a></li>
+                        <li><a href="{% url 'shop:product-list' %}?type=ring">Rings</a></li>
+                        <li><a href="{% url 'shop:product-list' %}?type=earring">Earrings</a></li>
+                        <li><a href="{% url 'shop:product-list' %}?type=bracelet">Bracelets</a></li>
                     </ul>
                 </div>
 
@@ -173,11 +177,11 @@
                 <div class="footer-col">
                     <h4>CUSTOMER CARE</h4>
                     <ul>
-                        <li><a href="#">Shipping &amp; Delivery</a></li>
-                        <li><a href="#">Returns</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Size Guide</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="{% url 'page:shipping' %}">Shipping &amp; Delivery</a></li>
+                        <li><a href="{% url 'page:returns' %}">Returns</a></li>
+                        <li><a href="{% url 'page:faq' %}">FAQ</a></li>
+                        <li><a href="{% url 'page:size-guide' %}">Size Guide</a></li>
+                        <li><a href="{% url 'page:contact' %}">Contact Us</a></li>
                     </ul>
                 </div>
 
