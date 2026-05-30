@@ -13,49 +13,80 @@ class ProductListView(ListView):                # Get the table from DB and send
     
 
     # Apply filters based on query parameters (category, type, search)
+    # Separated filtering and sorting logic into modular methods for maintainability
     def get_queryset(self):
         queryset = Product.objects.select_related("category").all()
-        category_slug = self.request.GET.get("category")
-        product_type = self.request.GET.get("type")
-        search_query = self.request.GET.get("q")    
-        sort = self.request.GET.get("sort")
 
-        if search_query:
-            search_query = search_query.strip()
-            
-        if sort == "price_asc":
-            queryset = queryset.order_by("price")
-        elif sort == "price_desc":
-            queryset = queryset.order_by("-price")
-        elif sort == "bestseller":
+        # -------------------------
+        # GET PARAMETERS
+        # -------------------------
+
+        params = self.request.GET
+        category_slug = params.get("category")
+        product_type = params.get("type")
+        search_query = params.get("q", "").strip()
+        sort = params.get("sort")
+        bestseller = params.get("bestseller")
+
+        # -------------------------
+        # FILTERS
+        # -------------------------
+
+        if bestseller:
             queryset = queryset.filter(featured=True)
-        else:
-            queryset = queryset.order_by("-created_at")
 
+        if category_slug:
+            queryset = queryset.filter(category__slug=category_slug)
 
-        if category_slug not in [None, "", "None"]:
-            queryset = queryset.filter(category__slug=category_slug ) 
         if product_type:
             queryset = queryset.filter(product_type=product_type)
+
         if search_query:
             queryset = queryset.filter(
-                Q(name__icontains=search_query) |
-                Q(description__icontains=search_query)
+                Q(name__iexact=search_query) |
+                Q(product_type__iexact=search_query)
             )
+        
+        # -------------------------
+        # SORTING
+        # -------------------------
+
+        queryset = self.apply_sorting(queryset, sort)
 
         return queryset
+    
+
+    def apply_sorting(self, queryset, sort):
+        sort_options = {
+            "price_asc": "price",
+            "price_desc": "-price",
+            "newest": "-created_at",
+        }
+
+        return queryset.order_by(
+            sort_options.get(sort, "-created_at")
+        )
+    
+    def get_filter_query(self):
+        params = self.request.GET.copy()
+        params.pop("page", None)
+        return params.urlencode()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        category = self.request.GET.get("category")
+        params = self.request.GET
 
-        context["categories"] = Category.objects.all() # Send to templates
-        context["product_type_choices"] = Product.PRODUCT_TYPE_CHOICES
-        context["selected_category"] = category if category not in [None, "", "None"] else None  # Convert category ID from string to int for template comparison
-        context["selected_type"] = self.request.GET.get("type", "")
-        context["search_query"] = self.request.GET.get("q", "")
-        context["selected_sort"] = self.request.GET.get("sort", "")
+        context.update({
+            "categories": Category.objects.all(),
+            "product_type_choices": Product.PRODUCT_TYPE_CHOICES,
+            "selected_category": params.get("category") or "",
+            "selected_type": params.get("type") or "",
+            "search_query": params.get("q", ""),
+            "selected_sort": params.get("sort", ""),
+            "bestseller": params.get("bestseller", ""),
+        })
+
         return context
 
 class ProductDetailView(DetailView):            # Get one product by pk from DB and send it to the detail page
@@ -63,10 +94,13 @@ class ProductDetailView(DetailView):            # Get one product by pk from DB 
     template_name = "shop/product_detail.html"
     context_object_name = "product"
 
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+
+
     def get_object(self):
         return get_object_or_404(
             Product,
-            pk=self.kwargs["pk"],
             slug=self.kwargs["slug"]
     )
     

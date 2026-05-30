@@ -88,7 +88,7 @@
                     <h2 class="h5 card-title">{{ product.name }}</h2>
                     <p class="fw-semibold mb-2">€{{ product.price }}</p>
                     <p class="card-text text-muted mb-3">{{ product.short_description }}</p>
-                    <a href="{% url 'shop:product-detail' pk=product.pk slug=product.slug %}"
+                    <a href="{% url 'shop:product-detail' slug=product.slug %}"
                         class="btn btn-outline-dark mt-auto">View
                         Details</a>
                 </div>
@@ -110,19 +110,13 @@
             {% if page_obj.has_previous %}
             <li class="page-item">
                 <a class="page-link"
-                    href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}
-                    {% if selected_type %}&type={{ selected_type }}{% endif %}
-                    {% if search_query %}&q={{ search_query }}{% endif %}
-                    {% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                    href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
                     «
                 </a>
             </li>
             <li class="page-item">
                 <a class="page-link"
-                    href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}
-                    {% if selected_type %}&type={{ selected_type }}{% endif %}
-                    {% if search_query %}&q={{ search_query }}{% endif %}
-                    {% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                    href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
                     ‹
                 </a>
             </li>
@@ -137,19 +131,13 @@
             {% if page_obj.has_next %}
             <li class="page-item">
                 <a class="page-link"
-                    href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}
-                    {% if selected_type %}&type={{ selected_type }}{% endif %}
-                    {% if search_query %}&q={{ search_query }}{% endif %}
-                    {% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                    href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
                     ›
                 </a>
             </li>
             <li class="page-item">
                 <a class="page-link"
-                    href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}
-                    {% if selected_type %}&type={{ selected_type }}{% endif %}
-                    {% if search_query %}&q={{ search_query }}{% endif %}
-                    {% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                    href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
                     »
                 </a>
             </li>
