@@ -291,6 +291,11 @@ A detailed schema description and Entity Relationship Diagram (ERD) will be incl
 
 
 ## 5. Features
+- Product browsing – Users can view all available jewelry products with images, descriptions, and pricing.
+- Shopping cart – Users can add, update, and remove products from their cart before checkout.
+- Stripe checkout – Secure payment processing using Stripe integration.
+- Admin CRUD – Admin users can create, read, update, and delete products from the database.
+- Authentication – User registration, login, logout, and protected routes for secure access.
 
 ## 6. E-commerce & Payments
 
