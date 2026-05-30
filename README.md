@@ -348,6 +348,16 @@ The target audience values:
 
 [screenshot](https://drive.google.com/file/d/14uaQCj-2Pfpt5hdfE8eNpUVURMYbTs1g/view?usp=share_link)
 
+### Fixed Bugs
+
+| Bug | Cause | Fix |
+|---|---|---|
+| Product creation returned 500 error | Incorrect model/form handling | Fixed form validation and correctted model save logic |
+| User profile update failed | Missing POST request handling | Added proper POST handling and form save validation |
+| Broken navigation links | Incorrect URL routing in templates | Updated URL mappings in  URL Django templates |
+
+---
+
 ## 12. Deployment
 
 ## 13. Credits
