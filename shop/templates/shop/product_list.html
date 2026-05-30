@@ -103,7 +103,7 @@
 
     <!-- Preserve filters when navigating between pages -->
 
-    {% if is_paginated %}
+    {% if page_obj.paginator.num_pages > 1 or request.GET %}
     <nav class="mt-5">
         <ul class="pagination justify-content-center custom-pagination">
 
