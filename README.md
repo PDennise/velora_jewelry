@@ -360,7 +360,7 @@ The target audience values:
 | Product creation returned 500 error | Incorrect model/form handling | Fixed form validation and correctted model save logic |
 | User profile update failed | Missing POST request handling | Added proper POST handling and form save validation |
 | Broken navigation links | Incorrect URL routing in templates | Updated URL mappings in  URL Django templates |
-
+| Bestseller filter showing all products | `sort=bestseller` passed in URL but view expected `bestseller=1` as a separate param; checkbox was incorrectly disabled by `removeEmptyParams()` | Moved bestseller out of sort options into a standalone checkbox filter; updated home link to `?bestseller=1`; added `removeEmptyParams()` to `main.js` with checkbox type guard; added auto-submit on checkbox change |
 ---
 
 ## 12. Deployment
