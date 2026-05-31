@@ -122,6 +122,13 @@
                                     Profile
                                 </a>
                             </li>
+                            {% if user.is_staff %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'shop:add-product' %}">
+                                    Add Product
+                                </a>
+                            </li>
+                            {% endif %}
                             <li>
                                 <form method="POST" action="{% url 'users:logout' %}">
                                     {% csrf_token %}

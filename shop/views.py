@@ -2,6 +2,11 @@ from django.views.generic import ListView, DetailView
 from .models import Product, Category
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ProductForm
 
 # Create your views here.
 
@@ -103,4 +108,45 @@ class ProductDetailView(DetailView):            # Get one product by pk from DB 
             Product,
             slug=self.kwargs["slug"]
     )
-    
+
+
+@staff_member_required
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()                           # Save the new product to the database
+            messages.success(request, f'{product.name} successfully added.')
+            return redirect('shop:product-detail', slug=product.slug)
+    else:
+        form = ProductForm()
+
+    return render(request, 'shop/product_form.html', {'form': form, 'action': 'Add'})
+
+
+@staff_member_required
+def edit_product(request, slug):
+    product = get_object_or_404(Product, slug=slug)        # Get the product or return 404
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            product = form.save()                           # Save the updated product
+            messages.success(request, f'{product.name} successfully updated.')
+            return redirect('shop:product-detail', slug=product.slug)
+    else:
+        form = ProductForm(instance=product)
+
+    return render(request, 'shop/product_form.html', {'form': form, 'action': 'Edit', 'product': product})
+
+
+@staff_member_required
+def delete_product(request, slug):
+    product = get_object_or_404(Product, slug=slug)        # Get the product or return 404
+
+    if request.method == 'POST':
+        product.delete()                                    # Delete the product from the database
+        messages.success(request, 'Product successfully deleted.')
+        return redirect('shop:product-list')
+
+    return render(request, 'shop/product_confirm_delete.html', {'product': product})

@@ -71,6 +71,20 @@
                 </button>
             {% endif %}
         </form>
+
+        <!-- ADMIN CONTROLS -->
+        {% if request.user.is_staff %}
+        <div class="d-flex gap-2 mt-3">
+            <a href="{% url 'shop:edit-product' slug=product.slug %}"
+               class="btn btn-outline-dark rounded-pill px-3">
+                Edit Product
+            </a>
+            <a href="{% url 'shop:delete-product' slug=product.slug %}"
+               class="btn btn-outline-danger rounded-pill px-3">
+                Delete Product
+            </a>
+        </div>
+        {% endif %}
     </div>
 </div>
 
