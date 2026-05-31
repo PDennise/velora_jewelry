@@ -167,6 +167,20 @@ body {
 }
 
 /* =========================
+   SWEETALERT2
+========================= */
+
+.swal-velora {
+    font-family: inherit !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1) !important;
+}
+
+.swal-velora .swal2-timer-progress-bar {
+    background: #d4af37 !important;
+}
+
+/* =========================
    HERO
 ========================= */
 

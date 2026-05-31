@@ -153,9 +153,22 @@
 
         {% if messages %}
         {% for message in messages %}
-        <div class="alert alert-danger mt-3">
-            {{ message }}
-        </div>
+       <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                Swal.fire({
+                    icon: "{{ message.tags }}",
+                    text: "{{ message }}",
+                    toast: true,
+                    position: 'top-end',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'swal-velora',
+                    }
+                });
+            });
+        </script>
         {% endfor %}
         {% endif %}
 
@@ -236,6 +249,9 @@
 
     <!-- Flickity JS -->
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom JS -->
     <script src="{% static 'js/main.js' %}"></script>
