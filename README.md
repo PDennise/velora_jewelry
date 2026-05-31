@@ -287,7 +287,68 @@ The database will include the following core models:
 
 All relationships will be enforced using **foreign key constraints** and follow relational database best practices.
 
-A detailed schema description and Entity Relationship Diagram (ERD) will be included once model development is complete.
+A detailed schema description and Entity Relationship Diagram (ERD);
+
+```mermaid
+erDiagram
+  User ||--o{ Order : places
+  User ||--|| UserProfile : has
+  Product }o--|| Category : belongs_to
+  Order }o--|| Product : contains
+
+  User {
+    int id PK
+    string username
+    string email
+    string password
+  }
+
+  UserProfile {
+    int id PK
+    int user_id FK
+    string default_phone_number
+    string default_street_address1
+    string default_street_address2
+    string default_town_or_city
+    string default_county
+    string default_postcode
+    string default_country
+    datetime created_on
+    datetime updated_on
+  }
+
+  Category {
+    int id PK
+    string name
+    string slug
+  }
+
+  Product {
+    int id PK
+    int category_id FK
+    string name
+    string slug
+    string product_type
+    text description
+    string short_description
+    decimal price
+    int stock
+    bool featured
+    image image
+    datetime created_at
+  }
+
+  Order {
+    int id PK
+    int user_id FK
+    int product_id FK
+    int quantity
+    decimal price
+    datetime date
+  }
+```
+
+**Note:** The cart is session-based and does not require a database model. Cart data is stored in Django's session framework.
 
 
 ## 5. Features
