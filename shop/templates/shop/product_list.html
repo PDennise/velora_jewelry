@@ -19,7 +19,7 @@
 
     <!-- Filter form: category, type and search -->
 
-    <form method="get" class="row g-4 align-items-end" id="category-form">
+    <form method="get" class="row g-4 align-items-end" id="category-form" onchange="removeEmptyParams(this.form); this.form.submit()">
         <div class="col-lg-3 col-md-6">
             <label for="category" class="form-label filter-label">
                 Category
@@ -57,9 +57,6 @@
                 <option value="price_desc" {% if selected_sort == "price_desc" %}selected{% endif %}>
                     Price: High to Low
                 </option>
-                <option value="bestseller" {% if selected_sort == "bestseller" %}selected{% endif %}>
-                    Bestsellers
-                </option>
             </select>
         </div>
         <div class="col-12 d-flex gap-2 justify-content-end mt-2">
@@ -67,6 +64,14 @@
             <a href="{% url 'shop:product-list' %}" class="btn btn-outline-secondary px-4 rounded-pill">
                 Reset
             </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <label class="form-label filter-label">Bestsellers</label>
+            <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" name="bestseller" value="1" id="bestseller"
+                    {% if bestseller == "1" %}checked{% endif %} onchange="removeEmptyParams(this.form); this.form.submit()">
+                <label class="form-check-label" for="bestseller">Show only bestsellers</label>
+            </div>
         </div>
     </form>
 
@@ -110,13 +115,13 @@
             {% if page_obj.has_previous %}
             <li class="page-item">
                 <a class="page-link"
-                    href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                    href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}{% if bestseller %}&bestseller={{ bestseller }}{% endif %}">
                     «
                 </a>
             </li>
             <li class="page-item">
                 <a class="page-link"
-                    href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                    href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}{% if bestseller %}&bestseller={{ bestseller }}{% endif %}">
                     ‹
                 </a>
             </li>
@@ -131,13 +136,13 @@
             {% if page_obj.has_next %}
             <li class="page-item">
                 <a class="page-link"
-                    href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                    href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}{% if bestseller %}&bestseller={{ bestseller }}{% endif %}">
                     ›
                 </a>
             </li>
             <li class="page-item">
                 <a class="page-link"
-                    href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                    href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}{% if bestseller %}&bestseller={{ bestseller }}{% endif %}">
                     »
                 </a>
             </li>

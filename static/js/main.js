@@ -74,3 +74,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+function removeEmptyParams(form) {
+    Array.from(form.elements).forEach(el => {
+        if (el.type === "checkbox") return; // checkbox'ları atla, value="1" olduğu için disable olmasın
+        if (!el.value) el.disabled = true;
+    });
+}

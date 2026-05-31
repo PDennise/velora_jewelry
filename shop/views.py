@@ -32,7 +32,7 @@ class ProductListView(ListView):                # Get the table from DB and send
         # FILTERS
         # -------------------------
 
-        if bestseller:
+        if bestseller == "1":
             queryset = queryset.filter(featured=True)
 
         if category_slug:
@@ -46,7 +46,7 @@ class ProductListView(ListView):                # Get the table from DB and send
                 Q(name__iexact=search_query) |
                 Q(product_type__iexact=search_query)
             )
-        
+
         # -------------------------
         # SORTING
         # -------------------------
