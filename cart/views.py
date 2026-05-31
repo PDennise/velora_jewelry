@@ -2,6 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from shop.models import Product
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from orders.models import Order, OrderItem
+import stripe
+from django.conf import settings
+
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY                 # Set Stripe secret key
+
 
 # Create your views here.
 def add_to_cart(request, product_id):
@@ -20,7 +28,7 @@ def add_to_cart(request, product_id):
 
     request.session['cart'] = cart                       # Save the updated cart back into the session
     messages.success(request, f"{product.name} added to your cart.")
-    
+
     return redirect('' \
         'shop:product-detail',                           # Stays the user in the product detail page
         slug=product.slug
@@ -61,4 +69,65 @@ def remove_from_cart(request, product_id):
 @login_required
 def checkout(request):
     # checkout logic
-    return render(request, 'cart/checkout.html')
+
+    cart = request.session.get('cart', {})                   # Get the current cart from session
+
+    if not cart:
+        return redirect('cart:cart_detail')                  # Redirect to cart if empty
+
+    products = Product.objects.filter(id__in=cart.keys())    # Get all products in the cart
+
+    cart_items = []
+    total = 0
+
+    for product in products:
+        quantity = cart[str(product.id)]                     # Get quantity for each product
+        item_total = product.price * quantity                # Calculate item total
+        total += item_total                                  # Add to overall total
+        cart_items.append({
+            'product': product,
+            'quantity': quantity,
+            'item_total': item_total,
+        })
+
+    if request.method == 'POST':
+        payment_intent_id = request.POST.get('payment_intent_id')  # Get payment intent ID from form
+
+        try:
+            intent = stripe.PaymentIntent.retrieve(payment_intent_id)  # Retrieve payment intent from Stripe
+
+            if intent.status == 'succeeded':
+                order = Order.objects.create(                # Create order after successful payment
+                    user=request.user,
+                    total=total,
+                    status=Order.STATUS_PAID,
+                    stripe_payment_intent=payment_intent_id
+                )
+
+                for item in cart_items:                      # Create order items
+                    OrderItem.objects.create(
+                        order=order,
+                        product=item['product'],
+                        quantity=item['quantity'],
+                        price=item['product'].price
+                    )
+
+                request.session['cart'] = {}                 # Clear the cart after successful payment
+                messages.success(request, "Payment successful! Your order has been placed.")
+                return redirect('orders:order_detail', order_id=order.id)
+
+        except stripe.error.StripeError as e:
+            messages.error(request, f"Payment failed: {str(e)}")
+
+    intent = stripe.PaymentIntent.create(                    # Create payment intent for GET request
+        amount=int(total * 100),                             # Convert to cents
+        currency='eur',
+        metadata={'user_id': request.user.id}
+    )
+
+    return render(request, 'cart/checkout.html', {
+        'cart_items': cart_items,
+        'total': total,
+        'client_secret': intent.client_secret,               # Pass client secret to template for Stripe.js
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+    })
