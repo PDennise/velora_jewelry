@@ -19,12 +19,15 @@ def add_to_cart(request, product_id):
         messages.error(request, "This product is out of stock.")
         return redirect('shop:product-detail', slug=product.slug)
     
+    quantity = int(request.POST.get('quantity', 1))  # Get quantity from form
+    quantity = max(1, min(quantity, product.stock))  # Clamp between 1 and stock
+    
     cart = request.session.get('cart', {})               # Get the current cart from session, or create an empty one if it doesn't exist
 
     if str(product_id) in cart:                          # If the product is already in the cart, increase its quantity
-        cart[str(product_id)] += 1
+        cart[str(product_id)] =min(cart[str(product_id)] + quantity, product.stock)
     else:                                                # Otherwise, add the product to the cart with quantity 1
-        cart[str(product_id)] = 1 
+        cart[str(product_id)] = quantity
 
     request.session['cart'] = cart                       # Save the updated cart back into the session
     messages.success(request, f"{product.name} added to your cart.")

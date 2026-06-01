@@ -81,3 +81,16 @@ function removeEmptyParams(form) {
         if (!el.value) el.disabled = true;
     });
 }
+
+
+// for quantity 
+
+function changeQty(delta) {
+    const input = document.getElementById('quantity');
+    if (!input) return;  // sadece bu satır ekstra
+    const max = parseInt(input.max);
+    let val = parseInt(input.value) + delta;
+    if (val < 1) val = 1;
+    if (val > max) val = max;
+    input.value = val;
+}
