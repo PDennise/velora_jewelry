@@ -360,15 +360,33 @@ erDiagram
 
 ## 6. E-commerce & Payments
 
-## 7. SEO
+## 7. SEO & Marketing
 
-## 8. Marketing
+**Search engine optimisation**
+> As a site owner, I want the site to be search-engine optimised so that more users can find it online.
 
-### Social Media Marketing
+- Each page includes a unique, descriptive title and meta description
+- Valid `sitemap.xml` generated and available for indexing
+- Properly configured `robots.txt` implemented
+- All images include descriptive `alt` attributes
+- Semantic HTML5 elements used throughout (`<header>`, `<main>`, `<section>`, `<footer>`)
+- Clean, readable, SEO-friendly URL structure
 
-The following Facebook mockup demonstrates the planned social media presence for Velora Jewelry.
+**Newsletter signup**
+> As a user, I want to sign up for a newsletter so that I can receive updates and promotions.
 
-![Facebook Mockup](documentation/marketing/facebook-mockup.png)
+- Newsletter signup form available in footer and/or homepage
+- Email validation applied; duplicate entries prevented
+- Confirmation message shown after successful signup
+- Email stored securely; data handling complies with consent principles
+
+**Facebook Business Page**
+> As a site owner, I want to promote my products through a Facebook Business Page so that I can increase brand awareness.
+
+- Facebook Business Page created with brand name, logo, and business description
+- Sample product posts and promotional content published
+- Screenshot/mockup included in documentation (see ![Facebook Mockup](documentation/marketing/facebook-mockup.png))
+- Link to Facebook page included in website footer
 
 ### Target Audience
 Velora Jewelry is designed for consumers who appreciate minimalist and elegant jewelry at an affordable price point.
