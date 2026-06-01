@@ -67,10 +67,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Hook this up to your Django view/endpoint
-            msg.textContent = "Thank you for subscribing!";
-            msg.className = "newsletter-msg success";
-            input.value = "";
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch('/newsletter/subscribe/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: `email=${encodeURIComponent(email)}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                msg.textContent = data.message;
+                msg.className = `newsletter-msg ${data.status}`;
+                if (data.status === 'success') input.value = '';
+            })
+            .catch(() => {
+                msg.textContent = 'Something went wrong. Please try again.';
+                msg.className = 'newsletter-msg error';
+            });
         });
     }
 });

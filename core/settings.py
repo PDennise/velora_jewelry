@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'cart',
     'page',
     'orders',
+    'newsletter',
     'django.contrib.sites',
     'django_countries',
     'django.contrib.sitemaps',
