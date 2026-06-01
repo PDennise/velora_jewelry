@@ -364,6 +364,12 @@ erDiagram
 
 ## 8. Marketing
 
+### Social Media Marketing
+
+The following Facebook mockup demonstrates the planned social media presence for Velora Jewelry.
+
+![Facebook Mockup](documentation/marketing/facebook-mockup.png)
+
 ### Target Audience
 Velora Jewelry is designed for consumers who appreciate minimalist and elegant jewelry at an affordable price point.
 
