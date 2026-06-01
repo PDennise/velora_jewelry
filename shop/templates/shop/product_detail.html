@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Product Page{% endblock %}
+
+{% block meta_description %}{{ product.short_description }}{% endblock %}
+{% block og_title %}{{ product.name }} | Velora Jewelry{% endblock %}
+{% block og_description %}{{ product.short_description }}{% endblock %}
+{% block meta_keywords %}{{ product.name }}, {{ product.category.name }}, {{ product.get_product_type_display }}, jewelry, velora{% endblock %}
+
+{% block title %}{{ product.name }} | Velora{% endblock %}
 
 {% block content %}
 
