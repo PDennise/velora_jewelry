@@ -360,54 +360,110 @@ erDiagram
 
 ## 6. E-commerce & Payments
 
-## 7. SEO & Marketing
+## 7. SEO
 
-**Search engine optimisation**
-> As a site owner, I want the site to be search-engine optimised so that more users can find it online.
+SEO was a core focus of this project. The following techniques were implemented to improve discoverability and search engine ranking.
 
-- Each page includes a unique, descriptive title and meta description
-- Valid `sitemap.xml` generated and available for indexing
-- Properly configured `robots.txt` implemented
-- All images include descriptive `alt` attributes
-- Semantic HTML5 elements used throughout (`<header>`, `<main>`, `<section>`, `<footer>`)
-- Clean, readable, SEO-friendly URL structure
+### `sitemap.xml`
 
-**Newsletter signup**
-> As a user, I want to sign up for a newsletter so that I can receive updates and promotions.
+A dynamic XML sitemap is generated using Django's built-in `django.contrib.sitemaps` framework. It includes all product detail pages, category listing pages, and static pages (Home, About, Contact).
 
-- Newsletter signup form available in footer and/or homepage
-- Email validation applied; duplicate entries prevented
-- Confirmation message shown after successful signup
-- Email stored securely; data handling complies with consent principles
+The sitemap is accessible at `/sitemap.xml`.
 
-**Facebook Business Page**
-> As a site owner, I want to promote my products through a Facebook Business Page so that I can increase brand awareness.
+📄 View implementation: [`shop/sitemaps.py`](shop/sitemaps.py) · [`velora_jewelry/urls.py`](core/urls.py)
 
-- Facebook Business Page created with brand name, logo, and business description
-- Sample product posts and promotional content published
-- Screenshot/mockup included in documentation (see ![Facebook Mockup](documentation/marketing/facebook-mockup.png))
-- Link to Facebook page included in website footer
+**Live Sitemap:**  
+https://velora-jewelry-3258e9b85555.herokuapp.com/sitemap.xml
+
+### `robots.txt`
+
+A `robots.txt` file is served from the root URL to guide web crawlers. It allows indexing of public pages and disallows crawling of sensitive areas.
+
+📄 View file: [`robots.txt`](templates/robots.txt)
+
+Sitemap: https://velora-jewelry-3258e9b85555.herokuapp.com/sitemap.xml
+
+### Meta Tags (Title & Description)
+
+Every page includes a unique `<title>` and `<meta name="description">` tag, defined in the base template and overridden per page using Django template blocks.
+
+📄 View implementation: [`templates/base.html`](templates/base.html) · [`shop/templates/shop/product_detail.html`](shop/templates/shop/product_detail.html)
+
+### Open Graph Tags
+
+Open Graph tags are implemented to improve how pages appear when shared on social media platforms such as Facebook, Instagram, LinkedIn, and X (Twitter). These tags provide custom page titles, descriptions, images, and URLs, creating rich link previews that enhance visibility and user engagement.
+
+📄 View implementation: [`templates/base.html`](templates/base.html) · [`shop/templates/shop/product_detail.html`](shop/templates/shop/product_detail.html)
+
+This implementation ensures that shared links display a meaningful title, description, representative image, and canonical URL, providing a more professional and engaging appearance across social platforms.
+
+### Additional SEO Considerations
+
+- Semantic HTML5 elements (`<header>`, `<main>`, `<section>`, `<nav>`, `<footer>`) used throughout
+- Descriptive `alt` attributes on all product images
+- Human-readable slugs for all product and category URLs (e.g. `products/rose-gold-dainty-tennis-bracelet/`)
+- No placeholder or Lorem Ipsum text in the final project.
+
+---
+
+## 8. Marketing
 
 ### Target Audience
+
 Velora Jewelry is designed for consumers who appreciate minimalist and elegant jewelry at an affordable price point.
 
-**Primary Target Audience**
+**Primary Target Audience** :
+
 - Women aged 18–45
-- Interested in fashion, accessories, and modern aesthetics
+- Men aged 18-50
+- Individuals interested in minimalist, and modern jewelry
 - Active on social media platforms such as Instagram and Facebook
 - Online shoppers comfortable with digital payments
 
-**Secondary Target Audience**
-- Individuals purchasing jewelry as gifts
+**Secondary Target Audience** :
+
+- Gift shoppers purchasing jewelry for partners, friends, or family members
 - Budget-conscious consumers seeking stylish yet affordable pieces
 - Young professionals looking for everyday elegant accessories
 
-**Customer Needs**
+**Customer Needs** :
+
 The target audience values:
+
 - Secure and seamless online shopping
 - Clear product descriptions and high-quality images
 - Trustworthy payment processing
 - Easy account management and order tracking
+
+### Social Media Marketing
+
+**Facebook Business Page Mockup** :
+
+A Facebook Business Page mockup was created for Velora Jewelry to support organic social media marketing. The page includes the brand name, logo, business description, and sample promotional posts to demonstrate the brand's social media presence.
+
+![Facebook Mockup](documentation/marketing/facebook-mockup.png)
+
+> A link to the Facebook Business Page would be included in the website footer in a production environment.
+
+### Email Marketing
+
+**Newsletter signup** :
+
+A newsletter signup form is available in the site footer. Subscriber email addresses are collected and stored securely in the database for future marketing campaigns, product launches, and promotional offers.
+
+This provides a direct communication channel with customers and supports customer retention and repeat purchases.
+
+### SEO Strategy
+
+Organic search traffic is supported through the SEO techniques implemented throughout the project, including:
+
+- Dynamic `sitemap.xml`
+- Configured `robots.txt`
+- Unique page titles and meta descriptions
+- Open Graph tags for social sharing
+- Semantic HTML structure
+- Descriptive image alt attributes
+- SEO-friendly URLs
 
 ## 9. Security Features
 
