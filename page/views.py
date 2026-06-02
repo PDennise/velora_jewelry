@@ -18,3 +18,6 @@ def faq(request):
 
 def size_guide(request):
     return render(request, 'page/size_guide.html')
+
+def custom_404(request, exception):
+    return render(request, "404.html", status=404)
