@@ -150,20 +150,29 @@
                                 </form>
                             </li>
 
-                         </ul>
+                        </ul>
                     </div>
                     {% else %}
-
-                    <a href="{% url 'users:login' %}" class="icon-btn">
-                        <i class="fa-regular fa-user"></i>
-                    </a>
-
+                    <div class="dropdown">
+                        <a href="#" class="icon-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'users:login' %}">
+                                    Login
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'users:register' %}">
+                                    Register
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                     {% endif %}
-
                 </div>
-
             </div>
-        </div>
     </nav>
 
     <!-- Main Content -->
@@ -171,7 +180,7 @@
 
         {% if messages %}
         {% for message in messages %}
-       <script>
+        <script>
             document.addEventListener("DOMContentLoaded", function () {
                 Swal.fire({
                     icon: "{{ message.tags }}",
