@@ -36,6 +36,17 @@
                         <td>{{ item.quantity }}</td>
                         <td>€{{ item.item_total }}</td>
                         <td>
+                            <form method="POST" action="{% url 'cart:update_quantity' item.product.id %}"
+                                class="d-flex gap-2 align-items-center">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ product.stock }}"
+                                    class="form-control form-control-sm" style="width:80px;">
+                                <button type="submit" class="btn btn-sm btn-outline-primary">
+                                    Update
+                                </button>
+                            </form>
+                        </td>
+                        <td>
                             <a href="{% url 'cart:remove_from_cart' item.product.id %}"
                                 class="btn btn-sm btn-outline-danger">Remove</a>
                         </td>

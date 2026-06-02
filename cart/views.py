@@ -61,6 +61,22 @@ def cart_detail(request):
         'total': total
     })
 
+def update_quantity(request, product_id):
+    cart = request.session.get('cart', {})                   # Get the current cart from the session, or create an empty dict if it doesn't exist
+    quantity = int(request.POST.get('quantity', 1))          # Get the quantity from POST data; default to 1 if not provided
+    product = get_object_or_404(Product, id=product_id)
+
+    if quantity > product.stock:
+        quantity = product.stock                            # Cap at available stock
+
+    if quantity > 0:
+        cart[str(product_id)] = quantity                     # If quantity is greater than 0, update the product quantity in the cart
+    else:
+        cart.pop(str(product_id), None)                      # If quantity is 0 or less, remove the product from the cart
+
+    request.session['cart'] = cart                           # Save the updated cart back into the session
+    return redirect('cart:cart_detail')                      # Redirect the user to the cart detail page
+
 def remove_from_cart(request, product_id):
     cart = request.session.get('cart', {})                  # Get the current cart from session
     cart.pop(str(product_id), None)                         # Remove the product from the cart if it exists
