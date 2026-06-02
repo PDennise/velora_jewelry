@@ -350,13 +350,28 @@ erDiagram
 
 **Note:** The cart is session-based and does not require a database model. Cart data is stored in Django's session framework.
 
-
 ## 5. Features
-- Product browsing – Users can view all available jewelry products with images, descriptions, and pricing.
-- Shopping cart – Users can add, update, and remove products from their cart before checkout.
-- Stripe checkout – Secure payment processing using Stripe integration.
-- Admin CRUD – Admin users can create, read, update, and delete products from the database.
-- Authentication – User registration, login, logout, and protected routes for secure access.
+
+- Product Browsing – Users can browse the full jewelry catalogue, view products details, images, descriptions, and pricing information.
+- Shopping cart – Users can add products to their cart, adjust quantities, remove items, and view an automatically updated order summary before checkout.
+- Stripe checkout – Secure payment processingis provided through Stripe integration, allowing users to complete purchases safely.
+- Authentication – User can register, log in, and log out securely. Authentication-protected features are restricted to authorized users.
+- Product Search and Filtering – Users can search for products and filter results to quickly find items that match their preferences.
+- Order Confirmation – Users receive confirmation after a successful purchase, ensuring clear feedback on completed transactions.
+- Featured Products Carousel – Selected products are highlighted on the homepage through a dynamic carousel to showcase featured items and promotions.
+- Responsive Design – The application is designed to provide a consistent user experience across desktop, tablet, and mobile devices.
+
+### Admin Product Management (CRUD)
+
+Administrators can manage products using the Django admin panel, including creating, updating, viewing, and deleting products.
+
+Staff users can also access a frontend “Add Product” interface to create new products directly from the website. Frontend add product is restricted to staff users only.
+
+Access to admin functionality is restricted using Django authentication:
+
+- `@staff_member_required` is used to protect admin-only views.
+- `is_staff` is used to separate admin users from regular authenticated users.
+- `user.is_authenticated` ensures only logged-in users can access protected features.
 
 ## 6. E-commerce & Payments
 
