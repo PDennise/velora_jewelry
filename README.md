@@ -486,6 +486,31 @@ Organic search traffic is supported through the SEO techniques implemented throu
 
 ## 11. Testing
 
+### Manual Testing
+
+| Feature | Action | Expected Result | Pass/Fail |
+|----------|--------|-----------------|-----------|
+| User Registration | Create new account | User is registered and redirected to homepage | Pass |
+| User Login | Login with valid credentials | User is logged in successfully | Pass |
+| Product Browsing | View homepage/products page | All products are displayed with images, price, and description | Pass |
+| Product Search | Click the search icon in the navbar | Redirected to Shop page where products can be searched by keyword | Pass |
+| Product Filtering | Apply filters | Products are filtered based on selected criteria | Pass |
+| Add to Cart | Click “Add to Cart” button | Product is added to shopping cart | Pass |
+| Update Cart | Change product quantity | Cart updates total price automatically | Pass |
+| Remove from Cart | Remove item from cart | Item is removed successfully | Pass |
+| Stripe Checkout | Complete payment process | Payment is processed successfully and an order record is created | Pass |
+| Order Confirmation | Complete checkout | Confirmation page is displayed with order details | Pass |
+| Admin Add Product (Django Admin) | Add product via admin panel | Product is created and appears in store | Pass |
+| Frontend Add Product (Staff only) | Add product via site interface | Success message is displayed and the product is added to the product list | Pass |
+| Authentication Protection | Attempt to access checkout without authentication | User is required to log in and is redirected to the login page | Pass |
+| Staff Restriction | Attempt to access Django admin as a non-staff user | User cannot access the admin panel and is shown a message requiring a staff account | Pass |
+
+All Manual Tests were performed both locally and on the deployed Heroku application. The results confirmed that core functionality, authentication, authorization, product management, cart operations, and payment processing work as expected across environments.
+
+### Stripe Payment Test
+
+![Successful Stripe Payment](/documentation/testing/order-confirmed-and-succecful-message.png)
+
 ### User Authentication Testing
 
 #### Loged-out state (before login)
