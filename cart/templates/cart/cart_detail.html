@@ -25,11 +25,13 @@
                     <tr>
                         <td>
                             <div class="d-flex align-items-center gap-3">
-                                {% if item.product.image %}
-                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"
-                                    style="width:64px; height:64px; object-fit:cover; border-radius:8px;">
-                                {% endif %}
-                                <span>{{ item.product.name }}</span>
+                                <a href="{% url 'shop:product-detail' item.product.slug %}" class="d-flex align-items-center gap-2 text-decoration-none text-dark">
+                                    {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"
+                                        style="width:64px; height:64px; object-fit:cover; border-radius:8px;">
+                                    {% endif %}
+                                    <span>{{ item.product.name }}</span>
+                                </a>
                             </div>
                         </td>
                         <td>€{{ item.product.price }}</td>
