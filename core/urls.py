@@ -21,8 +21,8 @@ urlpatterns = [
     path('users/', include('users.urls')),  # Users app
     path('cart/', include('cart.urls')),    # Cart app
     path('page/', include('page.urls')),    # Page app
+    path("info/", include("page.urls")),
     path('orders/', include('orders.urls')),# Orders app
-    path('admin/', admin.site.urls),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     path('newsletter/', include('newsletter.urls')),

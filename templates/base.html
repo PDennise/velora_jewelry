@@ -81,11 +81,11 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'page:about' %}">ABOUT</a>
+                        <a class="nav-link" href="{% url 'page:info-page' 'about' %}">ABOUT</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'page:contact' %}">CONTACT</a>
+                        <a class="nav-link" href="{% url 'page:info-page' 'contact' %}">CONTACT</a>
                     </li>
 
                 </ul>
@@ -175,6 +175,19 @@
             </div>
     </nav>
 
+    {% if banner_image %}
+    <section class="banner-section" style="background-image: url('{{ banner_image }}');">
+        <div class="banner-overlay"></div>
+
+        <div class="container position-relative text-white">
+            <h1>{{ title }}</h1>
+
+            {% block banner_content %}
+            {% endblock %}
+        </div>
+    </section>
+    {% endif %}
+
     <!-- Main Content -->
     <main>
 
@@ -244,11 +257,11 @@
                 <div class="footer-col">
                     <h4>CUSTOMER CARE</h4>
                     <ul>
-                        <li><a href="{% url 'page:shipping' %}">Shipping &amp; Delivery</a></li>
-                        <li><a href="{% url 'page:returns' %}">Returns</a></li>
-                        <li><a href="{% url 'page:faq' %}">FAQ</a></li>
-                        <li><a href="{% url 'page:size-guide' %}">Size Guide</a></li>
-                        <li><a href="{% url 'page:contact' %}">Contact Us</a></li>
+                        <li><a href="{% url 'page:info-page' 'shipping' %}">Shipping &amp; Delivery</a></li>
+                        <li><a href="{% url 'page:info-page' 'returns' %}">Returns</a></li>
+                        <li><a href="{% url 'page:info-page' 'faq' %}">FAQ</a></li>
+                        <li><a href="{% url 'page:info-page' 'size-guide' %}">Size Guide</a></li>
+                        <li><a href="{% url 'page:info-page' 'contact' %}">Contact Us</a></li>
                     </ul>
                 </div>
 

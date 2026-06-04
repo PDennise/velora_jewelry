@@ -90,11 +90,15 @@ class ProductListView(ListView):                # Get the table from DB and send
             "search_query": params.get("q", ""),
             "selected_sort": params.get("sort", ""),
             "bestseller": params.get("bestseller", ""),
+
+            # Banner
+            "banner_image": "/static/assets/images/shop-jewelry-img.jpg",
+            "title": "Shop Jewelry",
         })
 
         return context
 
-class ProductDetailView(DetailView):            # Get one product by pk from DB and send it to the detail page
+class ProductDetailView(DetailView):            # Get one product from DB and send it to the detail page
     model = Product
     template_name = "shop/product_detail.html"
     context_object_name = "product"
@@ -103,11 +107,14 @@ class ProductDetailView(DetailView):            # Get one product by pk from DB 
     slug_url_kwarg = "slug"
 
 
-    def get_object(self):
-        return get_object_or_404(
-            Product,
-            slug=self.kwargs["slug"]
-    )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Banner
+        context["banner_image"] = self.object.image.url
+
+        return context
+
 
 
 @staff_member_required
@@ -121,7 +128,15 @@ def add_product(request):
     else:
         form = ProductForm()
 
-    return render(request, 'shop/product_form.html', {'form': form, 'action': 'Add'})
+    return render(
+        request, 'shop/product_form.html',
+        {
+            'form': form,
+            'action': 'Add',
+            "banner_image": "/static/assets/images/shop-jewelry-img.jpg",
+            "title": "Shop Jewelry",
+        }
+    )
 
 
 @staff_member_required
