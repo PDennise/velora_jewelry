@@ -546,4 +546,74 @@ All Manual Tests were performed both locally and on the deployed Heroku applicat
 
 ## 12. Deployment
 
+The application is deployed on Heroku using a production-ready configuration with a PostgreSQL database.
+In development, the application uses SQLite, while the production environment uses Heroku PostgreSQL to ensure scalability and reliability.
+
+### Environment Variables
+
+The following Config Vars are set in Heroku (Settings → Config Vars):
+
+| Key                 | Value                          |
+| ------------------- | ------------------------------ |
+| `SECRET_KEY`        | Django secret key              |
+| `DATABASE_URL`      | Heroku PostgreSQL database URL |
+| `STRIPE_PUBLIC_KEY` | Stripe publishable key         |
+| `STRIPE_SECRET_KEY` | Stripe secret key              |
+| `STRIPE_WH_SECRET`  | Stripe webhook secret          |
+| `CLOUDINARY_URL`    | Cloudinary API URL             |
+| `EMAIL_HOST_USER`   | Email address                  |
+| `EMAIL_HOST_PASS`   | Email app password             |
+
+### Deployment Steps
+
+1. Create a Heroku app and add Heroku Postgres add-on
+2. Install required packages:
+
+```bash
+pip install gunicorn dj-database-url psycopg2-binary whitenoise
+```
+
+3. Create a Procfile in the root directory:
+
+```bash
+web: gunicorn velora_jewelry.wsgi:application
+```
+
+4. Update settings.py:
+
+```python
+    ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
+```
+
+5. Configure database:
+
+```python
+    import os
+    import dj_database_url
+    from decouple import config
+
+    DATABASES = {
+        'default': dj_database_url.parse(config(os.environ.get('DATABASE_URL')))
+    }
+```
+
+Database configuration uses environment variables for secure production deployment.
+
+6. Configure static files using WhiteNoise
+7. Commit and push to GitHub (auto deploy enabled on Heroku)
+8. Run migrations:
+
+```bash
+python manage.py migrate
+```
+
+9. Create a superuser:
+
+```bash
+python manage.py createsuperuser
+```
+
+**Summary**
+This deployment ensures the application runs in a secure, scalable, and production-ready environment with proper separation between development and production settings.
+
 ## 13. Credits
