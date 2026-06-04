@@ -542,6 +542,8 @@ All Manual Tests were performed both locally and on the deployed Heroku applicat
 | User profile update failed | Missing POST request handling | Added proper POST handling and form save validation |
 | Broken navigation links | Incorrect URL routing in templates | Updated URL mappings in  URL Django templates |
 | Bestseller filter showing all products | `sort=bestseller` passed in URL but view expected `bestseller=1` as a separate param; checkbox was incorrectly disabled by `removeEmptyParams()` | Moved bestseller out of sort options into a standalone checkbox filter; updated home link to `?bestseller=1`; added `removeEmptyParams()` to `main.js` with checkbox type guard; added auto-submit on checkbox change |
+| User profile page failed to load (500 error) | Orders were being sorted by `date`, but the Order model uses `created_at` as the timestamp field | Updated the profile view to order user orders by `created_at`, restoring profile functionality |
+
 ---
 
 ## 12. Deployment

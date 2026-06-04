@@ -16,7 +16,7 @@ def profile(request):
     """ Display the user's profile. """
 
     profile = UserProfile.objects.get(user=request.user)
-    orders = Order.objects.filter(user=request.user).order_by("-date")
+    orders = Order.objects.filter(user=request.user).order_by("-created_at")
     
     return render(request, 'users/profile.html', {
         "profile": profile,
