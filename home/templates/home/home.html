@@ -1,19 +1,265 @@
 {% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Velora Jewelry</title>
-</head>
-<body>
-    <h1>Welcome to Velora Jewelry</h1>
-    <h2>Products</h2>
-    <ul>
-    {% for product in products %}
-        <li>{{ product.name }} - ${{ product.price }}</li>
-    {% empty %}
-        <li>No products yet.</li>
-    {% endfor %}
-    </ul>
-</body>
-</html>
+{% block title %}Velora Jewelry{% endblock %}
+{% block content %}
+
+<header>
+    <!-- section with hero image -->
+    <section class="hero-section">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+
+            <p class="hero-subtitle">NEW SEASON</p>
+
+            <h1>
+                Elevate Your
+                <span>Style</span>
+            </h1>
+
+            <p class="hero-text">
+                Discover curated collections that redefine elegance.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="{% url 'shop:product-list' %}" class="btn-gold">
+                    SHOP NOW
+                </a>
+
+                <a href="#featured" class="btn-outline-light">
+                    VIEW COLLECTION
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+</header>
+<section class="category-section">
+
+    <div class="container-fluid">
+
+        <div class="row g-4">
+
+            <!-- Women -->
+            <div class="col-lg-4">
+
+                <a href="{% url 'shop:product-list' %}?category=women"
+                    class="category-card">
+
+                    <img src="{% static 'assets/images/women-img.png' %}" alt="Women">
+
+                    <div class="category-overlay">
+
+                        <h2>WOMEN</h2>
+
+                        <div class="gold-line"></div>
+
+                        <span>Shop Collection</span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <!-- Men -->
+            <div class="col-lg-4">
+
+                <a href="{% url 'shop:product-list' %}?category=men"
+                    class="category-card">
+
+                    <img src="{% static 'assets/images/men-img.png' %}" alt="Men">
+
+                    <div class="category-overlay">
+
+                        <h2>MEN</h2>
+
+                        <div class="gold-line"></div>
+
+                        <span>Shop Collection</span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <!-- Bestseller -->
+            <div class="col-lg-4">
+
+                <a href="{% url 'shop:product-list' %}?bestseller=1"
+                    class="category-card">
+
+                    <img src="{% static 'assets/images/bestsellers-img.png' %}"
+                        alt="Bestseller">
+
+                    <div class="category-overlay">
+
+                        <h2>BESTSELLERS</h2>
+
+                        <div class="gold-line"></div>
+
+
+                        <span>Discover Now</span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured-products" id="featured">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <h2>Featured Products</h2>
+
+            <div class="gold-line"></div>
+
+        </div>
+
+        <div class="featured-slider">
+
+            {% for product in featured_products %}
+
+            <div class="product-slide">
+
+                <div class="product-card">
+
+                    <div class="product-image">
+
+                        <img src="{{ product.image.url }}"
+                             alt="{{ product.name }}">
+
+                        <div class="product-icons">
+
+                            <a href="{% url 'cart:cart_detail' %}">
+                                <i class="fa-regular fa-heart"></i>
+                            </a>
+
+                            <a href="{% url 'cart:cart_detail' %}">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>{{ product.name }}</h3>
+
+                        <p>${{ product.price }}</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- BENEFITS SECTION -->
+<section class="benefits-section">
+
+    <div class="container">
+
+        <div class="row text-center g-5">
+
+            <!-- Item -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="benefit-item">
+
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-truck"></i>
+                    </div>
+
+                    <h4>Free Shipping</h4>
+
+                    <p>On orders over $100</p>
+
+                </div>
+
+            </div>
+
+            <!-- Item -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="benefit-item">
+
+                    <div class="benefit-icon">
+                        <i class="fa-regular fa-shield"></i>
+                    </div>
+
+                    <h4>Secure Payment</h4>
+
+                    <p>100% protected</p>
+
+                </div>
+
+            </div>
+
+            <!-- Item -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="benefit-item">
+
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
+
+                    <h4>Easy Returns</h4>
+
+                    <p>30-day policy</p>
+
+                </div>
+
+            </div>
+
+            <!-- Item -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="benefit-item">
+
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-headphones"></i>
+                    </div>
+
+                    <h4>24/7 Support</h4>
+
+                    <p>Dedicated service</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}

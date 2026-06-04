@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Page Not Found | Velora{% endblock %}
+
+{% block content %}
+
+<section class="error-section">
+    <div class="error-overlay"></div>
+    <div class="container text-center error-content">
+        <p class="error-subtitle">VELORA JEWELRY</p>
+        <h1 class="error-code">404</h1>
+        <div class="gold-line mx-auto mb-4"></div>
+        <h2 class="error-title">This gem seems to be lost...</h2>
+        <p class="error-text">The page you're looking for has wandered off our collection.<br>Let us guide you back to something beautiful.</p>
+        <a href="{% url 'shop:product-list' %}" class="btn-gold mt-4 d-inline-block">Browse Collection</a>
+    </div>
+</section>
+
+{% endblock %}

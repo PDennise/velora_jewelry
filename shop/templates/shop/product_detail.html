@@ -1,5 +1,111 @@
 {% extends 'base.html' %}
 {% load static %}
-<h1>{{ product.name }}</h1>
-<p>{{ product.description }}</p>
-<p>Price: ${{ product.price }}</p>
+
+{% block og_title %}{{ product.name }} | Velora Jewelry{% endblock %}
+{% block og_description %}{{ product.short_description }}{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ product.image.url }}{% endblock %}
+
+{% block title %}{{ product.name }} | Velora{% endblock %}
+
+{% block banner_content %}
+<div class="banner-content">
+    <p class="banner-subtitle">Velora</p>
+    <h1 class="banner-title">{{ product.name }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="container product-detail-container">
+    <div class="mb-3">
+        <a href="{% url 'shop:product-list' %}" class="btn-back-shop">← Back to Shop</a>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- IMAGE -->
+        <div class="col-12 col-md-6">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm product-detail-img" alt="{{ product.name }}">
+            {% else %}
+            <div class="bg-light text-muted d-flex align-items-center justify-content-center rounded"
+                style="min-height: 300px;">
+                <img src="{% static 'images/placeholder.png' %}" class="img-fluid">
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- INFO -->
+        <div class="col-12 col-md-6">
+            <h2 class="h2">{{ product.name }}</h2>
+
+            <!-- SKU -->
+            {% if product.sku %}
+            <p class="text-muted small">SKU: {{ product.sku }}</p>
+            {% endif %}
+
+            <p class="h4 mb-3">€{{ product.price }}</p>
+
+            <!-- Category -->
+            {% if product.category %}
+            <p class="mb-2"><strong>Category:</strong> {{ product.category.name }}</p>
+            {% endif %}
+
+            <!-- Type -->
+            {% if product.product_type %}
+            <p class="mb-3"><strong>Type:</strong> {{ product.get_product_type_display }}</p>
+            {% endif %}
+
+            <!-- Stock -->
+            {% if product.stock %}
+            {% if product.stock > 0 %}
+            <p class="text-success">In stock ({{ product.stock }})</p>
+            {% else %}
+            <p class="text-danger">Out of stock</p>
+            {% endif %}
+            {% endif %}
+
+            <p class="text-muted">{{ product.short_description }}</p>
+
+            <hr>
+
+            <p>{{ product.description }}</p>
+
+            <!-- 🛒 ADD TO CART -->
+            <form method="POST" action="{% url 'cart:add_to_cart' product.id %}">
+                {% csrf_token %}
+
+                {% if product.stock > 0 %}
+                    <!-- Select Quantity -->
+                    <div class="quantity-selector mb-3">
+                        <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
+                            <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{ product.stock }}" class="qty-input">
+                        <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+                    </div>
+                    <button type="submit" class="btn-add-cart mt-3">
+                        Add to Cart
+                    </button>
+                {% else %}
+                    <button type="button" class="btn-add-cart mt-3" disabled>
+                        Out of Stock
+                    </button>
+                {% endif %}
+            </form>
+
+            <!-- ADMIN CONTROLS -->
+            {% if request.user.is_staff %}
+            <div class="d-flex gap-2 mt-3">
+                <a href="{% url 'shop:edit-product' slug=product.slug %}"
+                    class="btn btn-outline-dark rounded-pill px-3">
+                    Edit Product
+                </a>
+                <a href="{% url 'shop:delete-product' slug=product.slug %}"
+                    class="btn btn-outline-danger rounded-pill px-3">
+                    Delete Product
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

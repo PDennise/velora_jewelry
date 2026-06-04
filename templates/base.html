@@ -5,77 +5,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <meta name="description" content="{% block meta_description %}Velora Jewelry — Timeless jewelry for every moment. Shop our curated collection of necklaces, rings, earrings and bracelets.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}jewelry, necklaces, rings, earrings, bracelets, velora, fine jewelry{% endblock %}">
     <title>{% block title %}Velora Jewelry{% endblock %}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Velora Jewelry">
+    <meta property="og:title" content="{% block og_title %}Velora Jewelry{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Timeless jewelry for every moment. Crafted with passion, worn with pride.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% static 'assets/images/hero.jpg' %}{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Flickity CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/favicon_io /apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon_io /favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon_io /favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/favicon_io /site.webmanifest' %}">
+
+    {% block extra_css %}
+    {% endblock %}
 </head>
 
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <nav id="mainNavbar" class="navbar navbar-expand-lg custom-navbar">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Velora Jewelry</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <!-- Logo -->
+            <a class="navbar-brand custom-logo" href="{% url 'home:homepage' %}">
+                VELORA <span>JEWELRY</span>
+            </a>
+
+            <!-- Mobile Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav ms-auto">
+            <!-- Navbar Content -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+
+                <!-- Center Menu -->
+                <ul class="navbar-nav mx-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Shop</a>
+                        <a class="nav-link" href="{% url 'home:homepage' %}">HOME</a>
                     </li>
 
-                    <a class="nav-link" href="#">
-                        Cart
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'shop:product-list' %}">SHOP</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'page:info-page' 'about' %}">ABOUT</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'page:info-page' 'contact' %}">CONTACT</a>
+                    </li>
+
+                </ul>
+
+                <!-- Right Icons -->
+                <div class="nav-icons d-flex align-items-center gap-4">
+
+                    <form method="GET" action="{% url 'shop:product-list' %}">
+
+                        <button class="icon-btn" type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+
+                    <a href="{% url 'cart:cart_detail' %}" class="icon-btn position-relative">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                    </a>
+
+                    <a href="{% url 'cart:cart_detail' %}" class="icon-btn position-relative">
+
+                        <i class="fa-solid fa-bag-shopping"></i>
+
                         {% if request.session.cart %}
-                        <span class="badge bg-danger">{{ request.session.cart|length }}</span>
+                        <span class="cart-badge">
+                            {{ request.session.cart|length }}
+                        </span>
                         {% endif %}
                     </a>
 
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" href="#">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Register</a>
-                    </li>
-                    {% endif %}
+                    <div class="dropdown">
 
-                </ul>
+                        <a href="{% url 'users:profile' %}" 
+                            class="icon-btn dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+                                <a class="dropdown-item" href="{% url 'users:profile' %}">
+                                    Profile
+                                </a>
+                            </li>
+                            {% if user.is_staff %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'shop:add-product' %}">
+                                    Add Product
+                                </a>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <form method="POST" action="{% url 'users:logout' %}">
+                                    {% csrf_token %}
+
+                                    <button type="submit" class="dropdown-item">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div class="dropdown">
+                        <a href="#" class="icon-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'users:login' %}">
+                                    Login
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'users:register' %}">
+                                    Register
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
     </nav>
 
+    {% if banner_image %}
+    <section class="banner-section" style="background-image: url('{{ banner_image }}');">
+        <div class="banner-overlay"></div>
+
+        <div class="container position-relative text-white">
+            <h1>{{ title }}</h1>
+
+            {% block banner_content %}
+            {% endblock %}
+        </div>
+    </section>
+    {% endif %}
+
     <!-- Main Content -->
-    <main class="container py-4">
+    <main>
+
+        {% if messages %}
+        {% for message in messages %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                Swal.fire({
+                    icon: "{{ message.tags }}",
+                    text: "{{ message }}",
+                    toast: true,
+                    position: 'top-end',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'swal-velora',
+                    }
+                });
+            });
+        </script>
+        {% endfor %}
+        {% endif %}
+
         {% block content %}
         {% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-light text-center py-3 mt-5">
-        <small>© {% now "Y" %} Jewelry Store. All rights reserved.</small>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+
+                <!-- Brand -->
+                <div class="footer-brand">
+                    <a class="footer-logo" href="{% url 'home:homepage' %}">
+                        VELORA 
+                        <span>
+                            JEWELRY
+                        </span>
+                    </a>
+                    <p>Timeless jewelry for every moment. Crafted with passion, worn with pride.</p>
+                    <div class="footer-socials">
+                        <a href="https://www.instagram.com/" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://x.com/" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://pinterest.com/" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+                <!-- Shop -->
+                <div class="footer-col">
+                    <h4>SHOP</h4>
+                    <ul>
+                        <li><a href="{% url 'shop:product-list' %}">All Products</a></li>
+                        {% for category in categories %}
+                        <li><a href="{% url 'shop:product-list' %}?category={{ category.slug }}">{{ category.name }}</a>
+                        </li>
+                        {% endfor %}
+                        <li><a href="{% url 'shop:product-list' %}?type=necklace">Necklaces</a></li>
+                        <li><a href="{% url 'shop:product-list' %}?type=ring">Rings</a></li>
+                        <li><a href="{% url 'shop:product-list' %}?type=earring">Earrings</a></li>
+                        <li><a href="{% url 'shop:product-list' %}?type=bracelet">Bracelets</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Care -->
+                <div class="footer-col">
+                    <h4>CUSTOMER CARE</h4>
+                    <ul>
+                        <li><a href="{% url 'page:info-page' 'shipping' %}">Shipping &amp; Delivery</a></li>
+                        <li><a href="{% url 'page:info-page' 'returns' %}">Returns</a></li>
+                        <li><a href="{% url 'page:info-page' 'faq' %}">FAQ</a></li>
+                        <li><a href="{% url 'page:info-page' 'size-guide' %}">Size Guide</a></li>
+                        <li><a href="{% url 'page:info-page' 'contact' %}">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer-col">
+                    <h4>NEWSLETTER</h4>
+                    <p>Subscribe to get updates on new collections and offers.</p>
+                    <div class="footer-newsletter">
+                        <input type="email" id="newsletterEmail" placeholder="Enter your email">
+                        <button id="newsletterBtn">SUBSCRIBE</button>
+                    </div>
+                    <p id="newsletterMsg" class="newsletter-msg"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Velora Jewelry. All rights reserved.</p>
+        </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Flickity JS -->
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
 
     {% block extra_js %}
     {% endblock %}

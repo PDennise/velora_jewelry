@@ -287,43 +287,262 @@ The database will include the following core models:
 
 All relationships will be enforced using **foreign key constraints** and follow relational database best practices.
 
-A detailed schema description and Entity Relationship Diagram (ERD) will be included once model development is complete.
+A detailed schema description and Entity Relationship Diagram (ERD);
 
+```mermaid
+erDiagram
+  User ||--o{ Order : places
+  User ||--|| UserProfile : has
+  Product }o--|| Category : belongs_to
+  Order }o--|| Product : contains
+
+  User {
+    int id PK
+    string username
+    string email
+    string password
+  }
+
+  UserProfile {
+    int id PK
+    int user_id FK
+    string default_phone_number
+    string default_street_address1
+    string default_street_address2
+    string default_town_or_city
+    string default_county
+    string default_postcode
+    string default_country
+    datetime created_on
+    datetime updated_on
+  }
+
+  Category {
+    int id PK
+    string name
+    string slug
+  }
+
+  Product {
+    int id PK
+    int category_id FK
+    string name
+    string slug
+    string product_type
+    text description
+    string short_description
+    decimal price
+    int stock
+    bool featured
+    image image
+    datetime created_at
+  }
+
+  Order {
+    int id PK
+    int user_id FK
+    int product_id FK
+    int quantity
+    decimal price
+    datetime date
+  }
+```
+
+**Note:** The cart is session-based and does not require a database model. Cart data is stored in Django's session framework.
 
 ## 5. Features
+
+- Product Browsing – Users can browse the full jewelry catalogue, view products details, images, descriptions, and pricing information.
+- Shopping cart – Users can add products to their cart, adjust quantities, remove items, and view an automatically updated order summary before checkout.
+- Stripe checkout – Secure payment processingis provided through Stripe integration, allowing users to complete purchases safely.
+- Authentication – User can register, log in, and log out securely. Authentication-protected features are restricted to authorized users.
+- Product Search and Filtering – Users can search for products and filter results to quickly find items that match their preferences.
+- Order Confirmation – Users receive confirmation after a successful purchase, ensuring clear feedback on completed transactions.
+- Featured Products Carousel – Selected products are highlighted on the homepage through a dynamic carousel to showcase featured items and promotions.
+- Responsive Design – The application is designed to provide a consistent user experience across desktop, tablet, and mobile devices.
+
+### Admin Product Management (CRUD)
+
+Administrators can manage products using the Django admin panel, including creating, updating, viewing, and deleting products.
+
+Staff users can also access a frontend “Add Product” interface to create new products directly from the website. Frontend add product is restricted to staff users only.
+
+Access to admin functionality is restricted using Django authentication:
+
+- `@staff_member_required` is used to protect admin-only views.
+- `is_staff` is used to separate admin users from regular authenticated users.
+- `user.is_authenticated` ensures only logged-in users can access protected features.
 
 ## 6. E-commerce & Payments
 
 ## 7. SEO
 
+SEO was a core focus of this project. The following techniques were implemented to improve discoverability and search engine ranking.
+
+### `sitemap.xml`
+
+A dynamic XML sitemap is generated using Django's built-in `django.contrib.sitemaps` framework. It includes all product detail pages, category listing pages, and static pages (Home, About, Contact).
+
+The sitemap is accessible at `/sitemap.xml`.
+
+📄 View implementation: [`shop/sitemaps.py`](shop/sitemaps.py) · [`velora_jewelry/urls.py`](core/urls.py)
+
+**Live Sitemap:**  
+https://velora-jewelry-3258e9b85555.herokuapp.com/sitemap.xml
+
+### `robots.txt`
+
+A `robots.txt` file is served from the root URL to guide web crawlers. It allows indexing of public pages and disallows crawling of sensitive areas.
+
+📄 View file: [`robots.txt`](templates/robots.txt)
+
+Sitemap: https://velora-jewelry-3258e9b85555.herokuapp.com/sitemap.xml
+
+### Meta Tags (Title & Description)
+
+Every page includes a unique `<title>` and `<meta name="description">` tag, defined in the base template and overridden per page using Django template blocks.
+
+📄 View implementation: [`templates/base.html`](templates/base.html) · [`shop/templates/shop/product_detail.html`](shop/templates/shop/product_detail.html)
+
+### Open Graph Tags
+
+Open Graph tags are implemented to improve how pages appear when shared on social media platforms such as Facebook, Instagram, LinkedIn, and X (Twitter). These tags provide custom page titles, descriptions, images, and URLs, creating rich link previews that enhance visibility and user engagement.
+
+📄 View implementation: [`templates/base.html`](templates/base.html) · [`shop/templates/shop/product_detail.html`](shop/templates/shop/product_detail.html)
+
+This implementation ensures that shared links display a meaningful title, description, representative image, and canonical URL, providing a more professional and engaging appearance across social platforms.
+
+### Additional SEO Considerations
+
+- Semantic HTML5 elements (`<header>`, `<main>`, `<section>`, `<nav>`, `<footer>`) used throughout
+- Descriptive `alt` attributes on all product images
+- Human-readable slugs for all product and category URLs (e.g. `products/rose-gold-dainty-tennis-bracelet/`)
+- No placeholder or Lorem Ipsum text in the final project.
+
+---
+
 ## 8. Marketing
 
 ### Target Audience
+
 Velora Jewelry is designed for consumers who appreciate minimalist and elegant jewelry at an affordable price point.
 
-**Primary Target Audience**
+**Primary Target Audience** :
+
 - Women aged 18–45
-- Interested in fashion, accessories, and modern aesthetics
+- Men aged 18-50
+- Individuals interested in minimalist, and modern jewelry
 - Active on social media platforms such as Instagram and Facebook
 - Online shoppers comfortable with digital payments
 
-**Secondary Target Audience**
-- Individuals purchasing jewelry as gifts
+**Secondary Target Audience** :
+
+- Gift shoppers purchasing jewelry for partners, friends, or family members
 - Budget-conscious consumers seeking stylish yet affordable pieces
 - Young professionals looking for everyday elegant accessories
 
-**Customer Needs**
+**Customer Needs** :
+
 The target audience values:
+
 - Secure and seamless online shopping
 - Clear product descriptions and high-quality images
 - Trustworthy payment processing
 - Easy account management and order tracking
+
+### Social Media Marketing
+
+**Facebook Business Page Mockup** :
+
+A Facebook Business Page mockup was created for Velora Jewelry to support organic social media marketing. The page includes the brand name, logo, business description, and sample promotional posts to demonstrate the brand's social media presence.
+
+![Facebook Mockup](documentation/marketing/facebook-mockup.png)
+
+> A link to the Facebook Business Page would be included in the website footer in a production environment.
+
+### Email Marketing
+
+**Newsletter signup** :
+
+A newsletter signup form is available in the site footer. Subscriber email addresses are collected and stored securely in the database for future marketing campaigns, product launches, and promotional offers.
+
+This provides a direct communication channel with customers and supports customer retention and repeat purchases.
+
+### SEO Strategy
+
+Organic search traffic is supported through the SEO techniques implemented throughout the project, including:
+
+- Dynamic `sitemap.xml`
+- Configured `robots.txt`
+- Unique page titles and meta descriptions
+- Open Graph tags for social sharing
+- Semantic HTML structure
+- Descriptive image alt attributes
+- SEO-friendly URLs
 
 ## 9. Security Features
 
 ## 10. Technologies Used
 
 ## 11. Testing
+
+### Manual Testing
+
+| Feature | Action | Expected Result | Pass/Fail |
+|----------|--------|-----------------|-----------|
+| User Registration | Create new account | User is registered and redirected to homepage | Pass |
+| User Login | Login with valid credentials | User is logged in successfully | Pass |
+| Product Browsing | View homepage/products page | All products are displayed with images, price, and description | Pass |
+| Product Search | Click the search icon in the navbar | Redirected to Shop page where products can be searched by keyword | Pass |
+| Product Filtering | Apply filters | Products are filtered based on selected criteria | Pass |
+| Add to Cart | Click “Add to Cart” button | Product is added to shopping cart | Pass |
+| Update Cart | Change product quantity | Cart updates total price automatically | Pass |
+| Remove from Cart | Remove item from cart | Item is removed successfully | Pass |
+| Stripe Checkout | Complete payment process | Payment is processed successfully and an order record is created | Pass |
+| Order Confirmation | Complete checkout | Confirmation page is displayed with order details | Pass |
+| Admin Add Product (Django Admin) | Add product via admin panel | Product is created and appears in store | Pass |
+| Frontend Add Product (Staff only) | Add product via site interface | Success message is displayed and the product is added to the product list | Pass |
+| Authentication Protection | Attempt to access checkout without authentication | User is required to log in and is redirected to the login page | Pass |
+| Staff Restriction | Attempt to access Django admin as a non-staff user | User cannot access the admin panel and is shown a message requiring a staff account | Pass |
+
+All Manual Tests were performed both locally and on the deployed Heroku application. The results confirmed that core functionality, authentication, authorization, product management, cart operations, and payment processing work as expected across environments.
+
+### Stripe Payment Test
+
+![Successful Stripe Payment](/documentation/testing/order-confirmed-and-succecful-message.png)
+
+### User Authentication Testing
+
+#### Loged-out state (before login)
+- The navigation menu correctly displays Login and Register links for unauthenticated users.
+
+[screenshot](https://drive.google.com/file/d/1mqlBWFFwZaZdQe100i7XVMaQUk0YqcPo/view?usp=share_link)
+
+#### Logged-in state
+- After successful login, the user’s username is displayed in the navbar dropdown along with Profile and Logout options.
+
+[screenshot](https://drive.google.com/file/d/1EEaSUUlewOpeWiI0gIe1U0ljk4kdk5hN/view?usp=share_link)
+
+#### Logged-out state (after logout)
+- After logout, the navbar updates immediately and displays **Login** and **Register** again.
+
+[screenshot](https://drive.google.com/file/d/14uaQCj-2Pfpt5hdfE8eNpUVURMYbTs1g/view?usp=share_link)
+
+#### Unauthorized route protection
+- After logout, the navbar updates immediately and displays Login and Register again.
+- The same login page is shown when an unauthenticated user manually attempts to access /profile, confirming that protected routes are restricted.
+
+[screenshot](https://drive.google.com/file/d/14uaQCj-2Pfpt5hdfE8eNpUVURMYbTs1g/view?usp=share_link)
+
+### Fixed Bugs
+
+| Bug | Cause | Fix |
+|---|---|---|
+| Product creation returned 500 error | Incorrect model/form handling | Fixed form validation and correctted model save logic |
+| User profile update failed | Missing POST request handling | Added proper POST handling and form save validation |
+| Broken navigation links | Incorrect URL routing in templates | Updated URL mappings in  URL Django templates |
+| Bestseller filter showing all products | `sort=bestseller` passed in URL but view expected `bestseller=1` as a separate param; checkbox was incorrectly disabled by `removeEmptyParams()` | Moved bestseller out of sort options into a standalone checkbox filter; updated home link to `?bestseller=1`; added `removeEmptyParams()` to `main.js` with checkbox type guard; added auto-submit on checkbox change |
+---
 
 ## 12. Deployment
 

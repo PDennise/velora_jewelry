@@ -1,12 +1,151 @@
 {% extends 'base.html' %}
 {% load static %}
-<h1>Products</h1>
-<ul>
-{% for product in products %}
-    <li>
-        <a href="{{ product.id }}/">{{ product.name }}</a> - ${{ product.price }}
-    </li>
-{% empty %}
-    <li>No products yet.</li>
-{% endfor %}
-</ul>
+{% block title %}Products{% endblock %}
+{% block content %}
+
+<div class="container">
+
+    <div class="position-relative mb-4">
+        <h1 class="display-6 text-center shop" >Shop Jewelry</h1>
+        <span class="text-muted position-absolute end-0 top-50 translate-middle-y">
+            {{ products|length }} product{{ products|length|pluralize }}
+        </span>
+    </div>
+
+
+    <!-- Filter form: category, type and search -->
+
+    <form method="get" class="row g-4 align-items-end" id="category-form" onchange="removeEmptyParams(this.form); this.form.submit()">
+        <div class="col-lg-3 col-md-6">
+            <label for="category" class="form-label filter-label">
+                Category
+            </label>
+            <select class="form-select filter-input" name="category" id="category">
+                <option value="">All categories</option>
+                {% for category in categories %}
+                <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <label for="type" class="form-label filter-label">Type</label>
+            <select class="form-select filter-input" name="type" id="type">
+                <option value="">All types</option>
+                {% for value, label in product_type_choices %}
+                <option value="{{ value }}" {% if selected_type == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <label for="q" class="form-label filter-label">Search</label>
+            <input type="text" name="q" id="q" class="form-control filter-input" value="{{ search_query }}"
+                placeholder="Search products...">
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <label for="sort" class="form-label filter-label">Sort by</label>
+            <select name="sort" id="sort" class="form-select filter-input">
+                <option value="">Default</option>
+                <option value="price_asc" {% if selected_sort == "price_asc" %}selected{% endif %}>
+                    Price: Low to High
+                </option>
+                <option value="price_desc" {% if selected_sort == "price_desc" %}selected{% endif %}>
+                    Price: High to Low
+                </option>
+            </select>
+        </div>
+        <div class="col-12 d-flex gap-2 justify-content-end mt-2">
+            <button type="submit" class="btn btn-dark px-4 rounded-pill">Apply Filters</button>
+            <a href="{% url 'shop:product-list' %}" class="btn btn-outline-secondary px-4 rounded-pill">
+                Reset
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <label class="form-label filter-label">Bestsellers</label>
+            <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" name="bestseller" value="1" id="bestseller"
+                    {% if bestseller == "1" %}checked{% endif %} onchange="removeEmptyParams(this.form); this.form.submit()">
+                <label class="form-check-label" for="bestseller">Show only bestsellers</label>
+            </div>
+        </div>
+    </form>
+
+    <!-- PRODUCTS -->
+
+    <div class="row g-4">
+        {% for product in products %}
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                {% else %}
+                <div class="card-img-top bg-light text-muted d-flex align-items-center justify-content-center"
+                    style="min-height: 220px;">
+                    <img src="{% static 'images/placeholder.png' %}" class="img-fluid">
+                </div>
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h2 class="h5 card-title">{{ product.name }}</h2>
+                    <p class="fw-semibold mb-2">€{{ product.price }}</p>
+                    <p class="card-text text-muted mb-3">{{ product.short_description }}</p>
+                    <a href="{% url 'shop:product-detail' slug=product.slug %}"
+                        class="btn btn-outline-dark mt-auto">View
+                        Details</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info mb-0">No products found for the selected filters.</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Preserve filters when navigating between pages -->
+
+    {% if page_obj.paginator.num_pages > 1 or request.GET %}
+    <nav class="mt-5">
+        <ul class="pagination justify-content-center custom-pagination">
+
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}{% if bestseller %}&bestseller={{ bestseller }}{% endif %}">
+                    «
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}{% if bestseller %}&bestseller={{ bestseller }}{% endif %}">
+                    ‹
+                </a>
+            </li>
+            {% endif %}
+
+            <li class="page-item active">
+                <span class="page-link page-indicator">
+                    Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                </span>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}{% if bestseller %}&bestseller={{ bestseller }}{% endif %}">
+                    ›
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}{% if bestseller %}&bestseller={{ bestseller }}{% endif %}">
+                    »
+                </a>
+            </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+{% endif %}
+</div>
+{% endblock %}
