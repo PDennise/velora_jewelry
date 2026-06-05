@@ -20,9 +20,10 @@ def profile(request):
     
     return render(request, 'users/profile.html', {
         "profile": profile,
-        "orders": orders
+        "orders": orders,
+
+        "banner_image" : "/static/assets/images/profile-img.png"
     })
-    
 
 def register(request):
     if request.method == 'POST':                                            # Check if the form was submitted
@@ -78,10 +79,33 @@ def update_profile(request):
     data = json.loads(request.body)
 
     profile = UserProfile.objects.get(user=request.user)
-    profile.phone = data.get("phone")
+
+    profile.default_street_address1 = data.get("street_address1")
+    profile.default_street_address2 = data.get("street_address2")
+    profile.default_town_or_city = data.get("city")
+    profile.default_county = data.get("county")
+    profile.default_postcode = data.get("postcode")
+    
+    
     profile.save()
 
     return JsonResponse({
         "success": True,
-        "phone": profile.phone
+    })
+
+
+@login_required
+@require_POST
+def update_phone(request):
+
+    data = json.loads(request.body)
+
+    profile = UserProfile.objects.get(user=request.user)
+
+    profile.default_phone_number = data.get("phone")
+    profile.save()
+
+    return JsonResponse({
+        "success": True,
+        "phone": profile.default_phone_number
     })
