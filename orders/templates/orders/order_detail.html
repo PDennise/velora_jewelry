@@ -1,62 +1,82 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Order #{{ order.id }}{% endblock %}
+
 {% block content %}
-<div class="container my-5">
 
-    <div class="text-center mb-5">
-        <i class="bi bi-check-circle" style="font-size: 3rem; color: #d4af37;"></i>
-        <h1 class="display-6 shop mt-3">Order Confirmed</h1>
-        <p class="text-muted">Thank you for your purchase! Order #{{ order.id }}</p>
-    </div>
+<div class="order-confirmation">
 
-    <div class="row justify-content-center">
-        <div class="col-lg-7">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title mb-4">Order Details</h5>
-                    <table class="table align-middle">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Qty</th>
-                                <th>Price</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in order.items.all %}
-                            <tr>
-                                <td>{{ item.product.name }}</td>
-                                <td>{{ item.quantity }}</td>
-                                <td>€{{ item.price }}</td>
-                                <td>€{{ item.price|floatformat:2 }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3"><strong>Total</strong></td>
-                                <td><strong>€{{ order.total }}</strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+    <!-- HERO CONFIRMATION -->
+    <div class="order-hero text-center">
+        <div class="order-icon">
+            <i class="bi bi-check-circle-fill"></i>
+        </div>
 
-                    <hr>
+        <h1>Order Confirmed</h1>
 
-                    <div class="d-flex justify-content-between text-muted">
-                        <small>Order date: {{ order.created_at|date:"d M Y" }}</small>
-                        <small>Status: {{ order.status|capfirst }}</small>
-                    </div>
-                </div>
-            </div>
+        <p>
+            Thank you for your purchase.
+            Your order <strong>#{{ order.id }}</strong> has been successfully placed.
+        </p>
 
-            <div class="text-center mt-4">
-                <a href="{% url 'shop:product-list' %}" class="btn btn-dark rounded-pill px-4">
-                    Continue Shopping
-                </a>
-            </div>
+        <div class="order-meta">
+            <span>📅 {{ order.created_at|date:"d M Y" }}</span>
+            <span class="status">Status: {{ order.status|capfirst }}</span>
         </div>
     </div>
+
+
+    <div class="container my-5">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <!-- ORDER CARD -->
+                <div class="order-card">
+
+                    <div class="order-card-header">
+                        <h3>Order Summary</h3>
+                        <span>{{ order.items.count }} items</span>
+                    </div>
+
+                    <div class="order-items">
+
+                        {% for item in order.items.all %}
+                        <div class="order-item">
+
+                            <div class="item-info">
+                                <h5>{{ item.product.name }}</h5>
+                                <small>Qty: {{ item.quantity }}</small>
+                            </div>
+
+                            <div class="item-price">
+                                <div>€{{ item.price|floatformat:2 }}</div>
+                                <small>Total: €{{ item.get_total|floatformat:2 }}</small>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="order-total">
+                        <span>Total</span>
+                        <strong>€{{ order.total }}</strong>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-4">
+                    <a href="{% url 'shop:product-list' %}" class="btn btn-dark rounded-pill px-4">
+                        Continue Shopping
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 </div>
+
 {% endblock %}
