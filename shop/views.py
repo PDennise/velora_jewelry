@@ -1,3 +1,5 @@
+from multiprocessing import context
+
 from django.views.generic import ListView, DetailView
 from .models import Product, Category
 from django.shortcuts import get_object_or_404
@@ -7,6 +9,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ProductForm
+from django.templatetags.static import static
 
 # Create your views here.
 
@@ -133,8 +136,7 @@ def add_product(request):
         {
             'form': form,
             'action': 'Add',
-            "banner_image": "/static/assets/images/shop-jewelry-img.jpg",
-            "title": "Shop Jewelry",
+            "banner_image": "/static/assets/images/add-product-img.png",
         }
     )
 
@@ -149,10 +151,18 @@ def edit_product(request, slug):
             product = form.save()                           # Save the updated product
             messages.success(request, f'{product.name} successfully updated.')
             return redirect('shop:product-detail', slug=product.slug)
+
     else:
         form = ProductForm(instance=product)
 
-    return render(request, 'shop/product_form.html', {'form': form, 'action': 'Edit', 'product': product})
+    context = {
+        'product': product,
+        'form': form,
+        'action': 'Edit',
+        'banner_image': product.image.url if product.image else static('assets/images/shop-jewelry-img.jpg'),
+    }
+
+    return render(request, 'shop/product_form.html', context)
 
 
 @staff_member_required
@@ -164,4 +174,13 @@ def delete_product(request, slug):
         messages.success(request, 'Product successfully deleted.')
         return redirect('shop:product-list')
 
-    return render(request, 'shop/product_confirm_delete.html', {'product': product})
+    context = {
+            'product': product,
+            'banner_image': product.image.url 
+
+                if product.image 
+                else static('assets/images/shop-jewelry-img.jpg'),
+    }
+
+    return render(request, 'shop/product_confirm_delete.html', context)
+

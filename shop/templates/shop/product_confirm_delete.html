@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Delete Product{% endblock %}
+
+{% block banner %}
+    {% if banner_image %}
+        <img src="{{ banner_image }}" alt="{{ product.name }}">
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 
 <div class="container my-5">

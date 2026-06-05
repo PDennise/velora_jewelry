@@ -12,5 +12,8 @@ def order_detail(request, order_id):
     )
 
     return render(request, "orders/order_detail.html", {
-        "order": order
+        "order": order,
+
+        'banner_image': '/static/assets/images/order-confirmed-img.png',      
+
     })

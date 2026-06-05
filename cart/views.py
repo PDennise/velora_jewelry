@@ -58,7 +58,9 @@ def cart_detail(request):
     
     return render(request, 'cart/cart_detail.html', {        # Render the cart detail template with cart items and total price
         'cart_items': cart_items,
-        'total': total
+        'total': total,
+
+        'banner_image': '/static/assets/images/cart-img.png',
     })
 
 def update_quantity(request, product_id):
@@ -149,4 +151,6 @@ def checkout(request):
         'total': total,
         'client_secret': intent.client_secret,               # Pass client secret to template for Stripe.js
         'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+
+        'banner_image': '/static/assets/images/checkout-img.png',      
     })
