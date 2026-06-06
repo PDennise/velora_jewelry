@@ -110,3 +110,30 @@ function changeQty(delta) {
     if (val > max) val = max;
     input.value = val;
 }
+
+// Wishlist
+document.querySelectorAll(".wishlist-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+
+        const productId = this.dataset.product;
+
+        fetch(toggleWishlistUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify({
+                product_id: productId
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.added) {
+                this.classList.add("active"); // filled heart
+            } else {
+                this.classList.remove("active"); // empty heart
+            }
+        });
+    });
+});
