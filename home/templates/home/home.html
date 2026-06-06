@@ -146,10 +146,10 @@
 
                         <div class="product-icons">
 
-                            <a href="{% url 'cart:cart_detail' %}">
-                                <i class="fa-regular fa-heart"></i>
-                            </a>
-
+                            <button class="wishlist-btn" data-product="{{ product.id }}">
+                                <i class="{% if product in wishlist_products %}fa-solid fa-heart{% else %}fa-regular fa-heart{% endif %}"></i>
+                            </button>
+                            
                             <a href="{% url 'cart:cart_detail' %}">
                                 <i class="fa-solid fa-bag-shopping"></i>
                             </a>

@@ -552,6 +552,14 @@ Rendered page source (View Page Source) was used for validation to avoid false e
 
 Python code was checked using Flake8 to ensure compliance with PEP8 standards. Due to time constraints, several style issues remain, such as line length and whitespace inconsistencies. These do not affect the functionality of the application.
 
+### Lighthouse Testing
+
+Lighthouse was used to evaluate performance, accessibility, best practices.
+
+- Performance: 65
+- Accessibility: 88
+- Best Practices: 77
+
 ### User Authentication Testing
 
 #### Loged-out state (before login)
