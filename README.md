@@ -511,6 +511,28 @@ All Manual Tests were performed both locally and on the deployed Heroku applicat
 
 ![Successful Stripe Payment](/documentation/testing/order-confirmed-and-succecful-message.png)
 
+
+### HTML Validation
+
+All pages were validated using the [W3C Nu HTML Checker](https://validator.w3.org/nu/).
+Rendered page source (View Page Source) was used for validation to avoid false errors from Django template tags.
+
+| HTML Validation | W3C Validator | ⚠️ Pass with warnings |
+
+> HTML validation flagged heading hierarchy warnings (e.g. h1 jumping to h4/h5). 
+> These are structural improvements noted for future refactoring and do not affect 
+> functionality or user experience.
+
+![HTML Validation](/documentation/testing/validator-homepage.png)
+![HTML Validation](/documentation/testing/validator-register.png)
+![HTML Validation](/documentation/testing/validator-login.png)
+![HTML Validation](/documentation/testing/vlidator-myprofile.png)
+![HTML Validation](/documentation/testing/productlist-validator.png)
+![HTML Validation](/documentation/testing/validator-product-detail.png)
+![HTML Validation](/documentation/testing/validator-cart.png)
+![HTML Validation](/documentation/testing/validator-about.png)
+![HTML Validation](/documentation/testing/validator-checkout.png)
+
 ### User Authentication Testing
 
 #### Loged-out state (before login)
