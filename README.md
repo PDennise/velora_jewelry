@@ -271,6 +271,21 @@ Future expansion may include:
 
 ## 3. Design & Wireframes
 
+## Design & Wireframes
+
+Wireframes were created prior to development to plan the layout and structure of each page.
+They were designed using Claude AI and reflect the intended user interface for both desktop and mobile views.
+
+| Page | Wireframe |
+|---|---|
+| Home | ![Home](documentation/wireframes/homepage.png) |
+| Shop | ![Shop](documentation/wireframes/productlist.png) |
+| Product Detail | ![Product Detail](documentation/wireframes/product-detail.png) |
+| Cart | ![Cart](documentation/wireframes/yourcart.png) |
+| Checkout | ![Checkout](documentation/wireframes/checkout.png) |
+| Profile | ![Profile](documentation/wireframes/myprofile.png) |
+| Login and Register | ![Login](documentation/wireframes/login-and-register.png) |
+
 ## 4. Database Schema
 
 The application uses a **relational database** to support authentication, product management, and secure order processing.
