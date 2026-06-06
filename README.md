@@ -583,6 +583,18 @@ Rendered page source (View Page Source) was used for validation to avoid false e
 
 ---
 
+### Known Bugs
+
+* The Contact Us form requires further refinement to improve message submission feedback.
+* The wishlist feature may require additional optimization and testing following its implementation during the final development stage.
+
+### Future Improvements
+
+* Improve responsiveness across smaller mobile devices and tablet screens.
+* Add dynamic wishlist updates without page refresh.
+* Enhance contact form functionality with confirmation messages and improved validation.
+
+
 ## 12. Deployment
 
 The application is deployed on Heroku using a production-ready configuration with a PostgreSQL database.
