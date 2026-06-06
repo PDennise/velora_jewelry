@@ -41,7 +41,7 @@ def register(request):
             messages.error(request, 'There was an error with your registration. Please check the form.')  # Error message
     else:
         form = CustomUserCreationForm()                                     # Create an empty user registration form
-    return render(request, 'users/register.html', {'form': form})           # Render the registration template with the form
+    return render(request, 'users/register.html', {'form': form, 'banner_image' : '/static/assets/images/profile-img.png'})           # Render the registration template with the form
 
 def user_login(request):
     if request.method == 'POST':
@@ -67,7 +67,8 @@ def user_login(request):
         else:
             messages.error(request, 'Invalid email or password.')        # Error message                                       # Redirect to the homepage after successful login
 
-    return render(request, 'users/login.html')
+    return render(request, 'users/login.html', {"banner_image" : "/static/assets/images/profile-img.png"}
+)
 
 def user_logout(request):
     logout(request)
