@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
     '0.0.0.0', 
     '.herokuapp.com',
     'velora-jewelry-3258e9b85555.herokuapp.com',
+    'velora-jewelry.onrender.com',
     ]
 
 
@@ -65,6 +66,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://velora-jewelry.onrender.com",
 ]
 
 SITE_ID = 1
