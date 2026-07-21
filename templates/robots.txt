@@ -4,4 +4,4 @@ Disallow: /cart/
 Disallow: /orders/
 Disallow: /users/
 
-Sitemap: https://velora-jewelry-3258e9b85555.herokuapp.com/sitemap.xml
+Sitemap: https://velora-jewelry.onrender.com/sitemap.xml

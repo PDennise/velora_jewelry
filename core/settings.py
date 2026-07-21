@@ -32,8 +32,6 @@ ALLOWED_HOSTS = [
     'localhost', 
     '127.0.0.1', 
     '0.0.0.0', 
-    '.herokuapp.com',
-    'velora-jewelry-3258e9b85555.herokuapp.com',
     'velora-jewelry.onrender.com',
     ]
 

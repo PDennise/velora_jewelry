@@ -15,30 +15,37 @@
 13. Credits
 
 ## 1. Project Overview
+
 A full-stack Django e-commerce application for purchasing jewelry products.
 
 ### Business Model
+
 Velora Jewelry operates under a Business-to-Consumer (B2C) e-commerce model.
 The platform allows customers to browse and purchase jewelry products directly through a secure online checkout system.
 
-**Revenue Model**
+**Revenue Model:**
+
 - Single-payment transactions via Stripe
 - Direct online product sales
 - No subscription model currently implemented
 
-**Value Proposition**
+**Value Proposition:**
+
 - Affordable, stylish, and modern jewelry
 - Secure and streamlined checkout process
 - Easy account management and order tracking
 
-**Growth Strategy**
+**Growth Strategy:**
+
 Future expansion may include:
+
 - Limited-edition collections
 - Email marketing campaigns
 - Social media promotions
 - Potential subscription-based VIP offers
 
 ### Business Goals
+
 - Sell handcrafted jewelry products online (B2C model)
 - Provide a seamless and secure checkout experience
 - Build brand visibility through SEO and social media marketing
@@ -53,62 +60,68 @@ Future expansion may include:
     As a user, I want to register an account so that I can purchase jewelry products.
 
 #### Acceptance Criteria
+
 - The registration form includes: first name, last name, email, phone number, password, and password confirmation.
-- Email input must be validated for correct __format validation.__
-- Password must be at least __8 characters__ long.
+- Email input must be validated for correct **format validation.**
+- Password must be at least **8 characters** long.
 - Password confirmation must match the original password.
-- Clear __validation error messages__ are displayed for invalid input.
-- After successful registration, the user is automatically __authenticated and logged in.__
-- The navigation bar reflects the user's __authentication status.__
+- Clear **validation error messages** are displayed for invalid input.
+- After successful registration, the user is automatically **authenticated and logged in.**
+- The navigation bar reflects the user's **authentication status.**
 
     As a user, I want to log in and log out so that my account remains secure.
 
 #### Acceptance Criteria
-- The login form includes __email and password fields.__
+
+- The login form includes **email and password fields.**
 - Only registered users with valid credentials can log in.
-- Invalid credentials display a clear __error message.__
-- A logout option is visible only to __authenticated users.__
-- After logout, the user is redirected to the __home page.__
-- The navigation bar correctly reflects the user's __authentication status__ on all pages.
-- __Restricted pages require authentication__ and redirect unauthenticated users to the login page.
+- Invalid credentials display a clear **error message.**
+- A logout option is visible only to **authenticated users.**
+- After logout, the user is redirected to the **home page.**
+- The navigation bar correctly reflects the user's **authentication status** on all pages.
+- **Restricted pages require authentication** and redirect unauthenticated users to the login page.
 
     As a logged-in user, I want to see my login status so that I know I am authenticated.
 
 #### Acceptance Criteria
+
 - The logged-in user's username or email is displayed on all pages.
 - The navigation menu updates dynamically based on login state (e.g., “Login/Register” → “Logout/Profile”).
-- Unauthorized users cannot access __user-specific content.__
+- Unauthorized users cannot access **user-specific content.**
 - Login status updates immediately after login or logout without requiring a page refresh.
-- Any changes in authentication state (login/logout) are reflected consistently across all __templates.__
+- Any changes in authentication state (login/logout) are reflected consistently across all **templates.**
 
     As a logged-in user, I want to view my profile so that I can see my purchase history.
 
 #### Acceptance Criteria
+
 - The profile page displays all relevant user information: first name, last name, email, and phone number.
-- A list of past purchases is displayed with __order details__ including product name, quantity, price, and purchase date.
-- Users can update their contact information; __validation__ ensures correct format for email and phone number.
-- Only __authenticated users__ can access the profile page; unauthorized users are redirected to the login page.
+- A list of past purchases is displayed with **order details** including product name, quantity, price, and purchase date.
+- Users can update their contact information; **validation** ensures correct format for email and phone number.
+- Only **authenticated users** can access the profile page; unauthorized users are redirected to the login page.
 - Navigation links dynamically reflect login state and allow easy access to the profile page.
-- Any updates made to the profile are saved to the __database__ and reflected immediately in the user interface.
+- Any updates made to the profile are saved to the **database** and reflected immediately in the user interface.
 
 ### Product Browsing
-    
+
     As a user, I want to browse available jewelry products so that I can choose items to buy.
 
 #### Acceptance Criteria
+
 - The main shop page lists all available products clearly.
 - Each product displays a name, price, image, and short description.
 - Products can optionally be filtered or sorted by category, type, or price.
-- Clicking on a product navigates to a __detailed product page__ showing full description, images, and stock availability.
-- The layout is __responsive__ and user-friendly across devices (desktop, tablet, mobile).
+- Clicking on a product navigates to a **detailed product page** showing full description, images, and stock availability.
+- The layout is **responsive** and user-friendly across devices (desktop, tablet, mobile).
 - Navigation allows users to easily return to the main shop page from product detail pages.
 
     As a user, I want to view detailed information about a product so that I can make an informed purchasing decision.
 
 #### Acceptance Criteria
+
 - The product detail page displays the product name, full description, price, and images.
 - Optional attributes such as stock availability, SKU, size, or material are shown if available.
-- An __“Add to Cart”__ button is present, even if the checkout system is not yet implemented.
+- An **“Add to Cart”** button is present, even if the checkout system is not yet implemented.
 - Navigation allows users to return to the main product list easily.
 - Product images are displayed in a user-friendly gallery or slider if multiple images exist.
 - Page layout is responsive and maintains readability on desktop, tablet, and mobile devices.
@@ -118,7 +131,8 @@ Future expansion may include:
     As an admin, I want to add new products so that I can sell jewelry items.
 
 #### Acceptance Criteria
-- Access to the __“Add Product”__ page is restricted to admin users only.
+
+- Access to the **“Add Product”** page is restricted to admin users only.
 - The product creation form includes the following fields: product name, full description, price, image upload, category/type, stock quantity, and optional SKU.
 - Validation ensures all required fields are completed and that price is a positive number.
 - Clear success messages are displayed after a product is successfully added.
@@ -129,19 +143,21 @@ Future expansion may include:
     As an admin, I want to edit product details so that I can keep product information up to date.
 
 #### Acceptance Criteria
-- Only admin users have access to the __“Edit Product”__ page.
+
+- Only admin users have access to the **“Edit Product”** page.
 - Admin can update product information including name, full description, price, category/type, stock quantity, SKU, and images.
 - Validation is applied to all updated fields (e.g., price must be a positive number, required fields cannot be blank).
 - Successful updates display a clear success message; errors display descriptive messages.
 - After editing, changes are immediately reflected in the product detail page and shop listings.
 - If images are updated, the new images are stored and displayed correctly, replacing the previous ones if necessary.
-    
+
     As an admin, I want to delete products so that I can remove unavailable items.
 
 #### Acceptance Criteria
-- Only admin users can access the __“Delete Product”__ functionality.
-- Attempting to delete a product triggers a __confirmation prompt__ to prevent accidental deletions.
-- Once confirmed, the product is removed from the database and __immediately disappears__ from shop listings and product detail pages.
+
+- Only admin users can access the **“Delete Product”** functionality.
+- Attempting to delete a product triggers a **confirmation prompt** to prevent accidental deletions.
+- Once confirmed, the product is removed from the database and **immediately disappears** from shop listings and product detail pages.
 - Deleting a product also removes associated images from storage, if applicable.
 - Success or error messages are displayed to confirm the outcome of the deletion.
 - The system prevents deletion if the product is part of a pending order and notifies the admin appropriately.
@@ -151,6 +167,7 @@ Future expansion may include:
     As a logged-in user, I want to securely pay for a product so that I can complete my purchase.
 
 #### Acceptance Criteria
+
 - The checkout page displays a secure payment form integrated with Stripe.
 - Payment amount is automatically calculated from the products in the cart and cannot be altered by the user.
 - Payment data is transmitted securely over HTTPS and encrypted in compliance with Stripe standards.
@@ -163,16 +180,18 @@ Future expansion may include:
     As a user, I want to receive confirmation when my payment is successful so that I know my order has been placed.
 
 #### Acceptance Criteria
+
 - After a successful payment, a clear success message is displayed on the checkout page.
-- An __email confirmation__ is sent to the user with order details (optional but recommended).
+- An **email confirmation** is sent to the user with order details (optional but recommended).
 - The order status in the database is updated to “Paid” or equivalent.
-- Users are redirected to a __detailed order summary page__ showing purchased items, quantities, total price, and order date.
+- Users are redirected to a **detailed order summary page** showing purchased items, quantities, total price, and order date.
 - The order summary page is linked from the user’s profile / purchase history for easy reference.
 - Payment confirmation is secure and cannot be faked by manipulating URLs or browser behavior.
 
     As a user, I want to receive a clear error message if my payment fails so that I can try again.
 
 #### Acceptance Criteria
+
 - A descriptive error message is displayed to the user when a payment fails.
 - No order record is created in the database for failed payments.
 - Users can retry the payment for the same cart without losing their items.
@@ -186,9 +205,10 @@ Future expansion may include:
     As a user, I want to be prevented from accessing restricted pages so that my data remains secure.
 
 #### Acceptance Criteria
-- Non-authenticated users are __redirected to the login page__ when trying to access protected pages.
-- Users cannot access or view __other users’ data__, including profiles, orders, or cart contents.
-- Access permissions are __enforced on the server side__, not just via frontend navigation.
+
+- Non-authenticated users are **redirected to the login page** when trying to access protected pages.
+- Users cannot access or view **other users’ data**, including profiles, orders, or cart contents.
+- Access permissions are **enforced on the server side**, not just via frontend navigation.
 - Attempts to access restricted pages are logged for security review.
 - Protected pages show an appropriate message or redirect notice when access is denied.
 - Admin-only pages are completely restricted to admin users; unauthorized access attempts redirect or block users.
@@ -196,43 +216,46 @@ Future expansion may include:
     As an admin, I want to have access to administrative functionality so that I can manage the store.
 
 #### Acceptance Criteria
-- Access to all __admin functionality__ (add/edit/delete products, manage orders, view reports) is restricted to authenticated admin users.
-- Non-admin users attempting to access admin pages are redirected or shown an __access denied message.__
+
+- Access to all **admin functionality** (add/edit/delete products, manage orders, view reports) is restricted to authenticated admin users.
+- Non-admin users attempting to access admin pages are redirected or shown an **access denied message.**
 - Admin login is required; session handling ensures secure authentication.
-- All admin actions (add/edit/delete product, update orders) are __logged__ for auditing purposes.
-- Navigation and UI elements for admin functionality are visible __only to admin users.__
-- The system enforces __server-side checks__ to prevent unauthorized access even if frontend links are manipulated.
+- All admin actions (add/edit/delete product, update orders) are **logged** for auditing purposes.
+- Navigation and UI elements for admin functionality are visible **only to admin users.**
+- The system enforces **server-side checks** to prevent unauthorized access even if frontend links are manipulated.
 
 ### UX & Feedback
 
     As a user, I want clear navigation so that I can easily find products and pages.
 
 #### Acceptance Criteria
-- __Main navigation__ is visible on all pages.
-- Navigation includes links to __Home, Shop, Cart__, and __Profile/Login.__
-- The __active page__ is visually indicated to help users know their location.
-- Navigation is fully functional and __responsive__ on both __desktop__ and __mobile devices.__
-- Users can easily return to the __home page__ from any page.
-- Dropdowns, if any, are accessible and usable via keyboard for __accessibility.__
+
+- **Main navigation** is visible on all pages.
+- Navigation includes links to **Home, Shop, Cart**, and **Profile/Login.**
+- The **active page** is visually indicated to help users know their location.
+- Navigation is fully functional and **responsive** on both **desktop** and **mobile devices.**
+- Users can easily return to the **home page** from any page.
+- Dropdowns, if any, are accessible and usable via keyboard for **accessibility.**
 
     As a user, I want to receive meaningful feedback messages so that I understand the result of my actions.
 
 #### Acceptance Criteria
-- __Success messages__ are displayed after key actions such as __login, purchase__, or __form submission.__
-- __Error messages__ are displayed for invalid actions, form errors, or failed processes.
-- All messages are __clear, user-friendly__, and convey the exact outcome.
-- Messages can be __dismissed__ by the user or automatically disappear after a reasonable time.
-- Messages are consistent in __style and placement__ across the site for easy recognition.
-- Feedback is provided for both __frontend validation__ and __server-side errors__ to prevent confusion.
 
+- **Success messages** are displayed after key actions such as **login, purchase**, or **form submission.**
+- **Error messages** are displayed for invalid actions, form errors, or failed processes.
+- All messages are **clear, user-friendly**, and convey the exact outcome.
+- Messages can be **dismissed** by the user or automatically disappear after a reasonable time.
+- Messages are consistent in **style and placement** across the site for easy recognition.
+- Feedback is provided for both **frontend validation** and **server-side errors** to prevent confusion.
 
     As a user, I want to be redirected to a helpful page if I attempt to access a non-existent URL.
 
 #### Acceptance Criteria
-- A __custom 404 error page__ is displayed when a user accesses an invalid URL.
-- The 404 page includes clear navigation options to __Home__ and __Shop.__
-- The user is not shown a default __server error page.__
-- The 404 page maintains the site's __consistent design and branding.__
+
+- A **custom 404 error page** is displayed when a user accesses an invalid URL.
+- The 404 page includes clear navigation options to **Home** and **Shop.**
+- The user is not shown a default **server error page.**
+- The 404 page maintains the site's **consistent design and branding.**
 - A friendly message explains that the page cannot be found.
 - The error is handled gracefully without crashing the application.
 
@@ -241,32 +264,35 @@ Future expansion may include:
     As a site owner, I want the site to be search-engine optimised so that more users can find it online.
 
 #### Acceptance Criteria
-- Each page includes a unique and descriptive __page title__ relevant to its content.
-- All pages contain meaningful __meta descriptions__ to improve search visibility.
-- A valid __sitemap.xml__ file is generated and submitted for indexing.
-- A properly configured __robots.txt__ file is implemented.
-- No placeholder text (e.g., __Lorem Ipsum__) is present in the final project.
-- Images include descriptive __alt attributes__ for accessibility and SEO.
+
+- Each page includes a unique and descriptive **page title** relevant to its content.
+- All pages contain meaningful **meta descriptions** to improve search visibility.
+- A valid **sitemap.xml** file is generated and submitted for indexing.
+- A properly configured **robots.txt** file is implemented.
+- No placeholder text (e.g., **Lorem Ipsum**) is present in the final project.
+- Images include descriptive **alt attributes** for accessibility and SEO.
 - Semantic HTML elements (e.g., <header>, <main>, <section>, <footer>) are used appropriately.
 - URL structures are clean, readable, and SEO-friendly.
 
     As a user, I want to sign up for a newsletter so that I can receive updates and promotions.
 
 #### Acceptance Criteria
-- A __newsletter signup form__ is available on relevant pages (e.g., footer or homepage).
-- Email input includes proper __validation__ (correct format, no empty submission).
+
+- A **newsletter signup form** is available on relevant pages (e.g., footer or homepage).
+- Email input includes proper **validation** (correct format, no empty submission).
 - Duplicate email entries are prevented.
-- A clear __confirmation message__ is displayed after successful signup.
-- The email address is stored securely in the __database.__
-- Newsletter data handling complies with __data protection principles__ (e.g., consent).
+- A clear **confirmation message** is displayed after successful signup.
+- The email address is stored securely in the **database.**
+- Newsletter data handling complies with **data protection principles** (e.g., consent).
 
     As a site owner, I want to promote my products through a Facebook Business Page so that I can increase brand awareness.
 
 #### Acceptance Criteria
-- A __Facebook Business Page__ is created for the brand.
-- The page includes the __brand name__, logo, and clear business description.
-- Sample __product posts or promotional content__ are published.
-- A screenshot or mockup of the page is included in the __README documentation.__
+
+- A **Facebook Business Page** is created for the brand.
+- The page includes the **brand name**, logo, and clear business description.
+- Sample **product posts or promotional content** are published.
+- A screenshot or mockup of the page is included in the **README documentation.**
 - A link to the Facebook page is included in the website footer.
 
 ## 3. Design & Wireframes
@@ -403,7 +429,7 @@ The sitemap is accessible at `/sitemap.xml`.
 📄 View implementation: [`shop/sitemaps.py`](shop/sitemaps.py) · [`velora_jewelry/urls.py`](core/urls.py)
 
 **Live Sitemap:**  
-https://velora-jewelry-3258e9b85555.herokuapp.com/sitemap.xml
+<https://velora-jewelry.onrender.com/sitemap.xml>
 
 ### `robots.txt`
 
@@ -411,7 +437,7 @@ A `robots.txt` file is served from the root URL to guide web crawlers. It allows
 
 📄 View file: [`robots.txt`](templates/robots.txt)
 
-Sitemap: https://velora-jewelry-3258e9b85555.herokuapp.com/sitemap.xml
+Sitemap: <https://velora-jewelry.onrender.com/sitemap.xml>
 
 ### Meta Tags (Title & Description)
 
@@ -520,12 +546,11 @@ Organic search traffic is supported through the SEO techniques implemented throu
 | Authentication Protection | Attempt to access checkout without authentication | User is required to log in and is redirected to the login page | Pass |
 | Staff Restriction | Attempt to access Django admin as a non-staff user | User cannot access the admin panel and is shown a message requiring a staff account | Pass |
 
-All Manual Tests were performed both locally and on the deployed Heroku application. The results confirmed that core functionality, authentication, authorization, product management, cart operations, and payment processing work as expected across environments.
+All manual tests were performed both locally and on the deployed Render application. The results confirmed that core functionality, authentication, authorization, product management, cart operations, and payment processing work as expected in both environments.
 
 ### Stripe Payment Test
 
 ![Successful Stripe Payment](/documentation/testing/order-confirmed-and-succecful-message.png)
-
 
 ### HTML Validation
 
@@ -534,8 +559,8 @@ Rendered page source (View Page Source) was used for validation to avoid false e
 
 | HTML Validation | W3C Validator | ⚠️ Pass with warnings |
 
-> HTML validation flagged heading hierarchy warnings (e.g. h1 jumping to h4/h5). 
-> These are structural improvements noted for future refactoring and do not affect 
+> HTML validation flagged heading hierarchy warnings (e.g. h1 jumping to h4/h5).
+> These are structural improvements noted for future refactoring and do not affect
 > functionality or user experience.
 
 ![HTML Validation](/documentation/testing/validator-homepage.png)
@@ -563,21 +588,25 @@ Lighthouse was used to evaluate performance, accessibility, best practices.
 ### User Authentication Testing
 
 #### Loged-out state (before login)
+
 - The navigation menu correctly displays Login and Register links for unauthenticated users.
 
 [screenshot](https://drive.google.com/file/d/1mqlBWFFwZaZdQe100i7XVMaQUk0YqcPo/view?usp=share_link)
 
 #### Logged-in state
+
 - After successful login, the user’s username is displayed in the navbar dropdown along with Profile and Logout options.
 
 [screenshot](https://drive.google.com/file/d/1EEaSUUlewOpeWiI0gIe1U0ljk4kdk5hN/view?usp=share_link)
 
 #### Logged-out state (after logout)
+
 - After logout, the navbar updates immediately and displays **Login** and **Register** again.
 
 [screenshot](https://drive.google.com/file/d/14uaQCj-2Pfpt5hdfE8eNpUVURMYbTs1g/view?usp=share_link)
 
 #### Unauthorized route protection
+
 - After logout, the navbar updates immediately and displays Login and Register again.
 - The same login page is shown when an unauthenticated user manually attempts to access /profile, confirming that protected routes are restricted.
 
@@ -597,29 +626,29 @@ Lighthouse was used to evaluate performance, accessibility, best practices.
 
 ### Known Bugs
 
-* The Contact Us form requires further refinement to improve message submission feedback.
-* The wishlist feature may require additional optimization and testing following its implementation during the final development stage.
+- The Contact Us form requires further refinement to improve message submission feedback.
+- The wishlist feature may require additional optimization and testing following its implementation during the final development stage.
 
 ### Future Improvements
 
-* Improve responsiveness across smaller mobile devices and tablet screens.
-* Add dynamic wishlist updates without page refresh.
-* Enhance contact form functionality with confirmation messages and improved validation.
-
+- Improve responsiveness across smaller mobile devices and tablet screens.
+- Add dynamic wishlist updates without page refresh.
+- Enhance contact form functionality with confirmation messages and improved validation.
 
 ## 12. Deployment
 
-The application is deployed on Heroku using a production-ready configuration with a PostgreSQL database.
-In development, the application uses SQLite, while the production environment uses Heroku PostgreSQL to ensure scalability and reliability.
+The application is deployed on Render using a production-ready configuration with a PostgreSQL database.
+
+During development, the application uses SQLite for simplicity. In production, it uses a Render PostgreSQL database to provide reliable and scalable data storage. Media files are hosted on Cloudinary, and sensitive configuration values are managed using environment variables.
 
 ### Environment Variables
 
-The following Config Vars are set in Heroku (Settings → Config Vars):
+The following Environment Variables are set in Render (Dashboard → Environment Variables):
 
 | Key                 | Value                          |
 | ------------------- | ------------------------------ |
 | `SECRET_KEY`        | Django secret key              |
-| `DATABASE_URL`      | Heroku PostgreSQL database URL |
+| `DATABASE_URL`      | Render PostgreSQL database URL |
 | `STRIPE_PUBLIC_KEY` | Stripe publishable key         |
 | `STRIPE_SECRET_KEY` | Stripe secret key              |
 | `STRIPE_WH_SECRET`  | Stripe webhook secret          |
@@ -629,51 +658,39 @@ The following Config Vars are set in Heroku (Settings → Config Vars):
 
 ### Deployment Steps
 
-1. Create a Heroku app and add Heroku Postgres add-on
-2. Install required packages:
+1. Push the project to GitHub.
+2. Create a new `Web Service` on Render and connect the GitHub repository.
+3. Create a `PostgreSQL` database on Render.
+    1. Add the required environment variables in the Render dashboard:
+        - SECRET_KEY
+        - DATABASE_URL
+        - CLOUDINARY_URL
+        - STRIPE_PUBLIC_KEY
+        - STRIPE_SECRET_KEY
+        - STRIPE_WH_SECRET
+        - Email configuration variables (if applicable)
+4. Set the build command:
+    - $ pip install -r requirements.txt
+5. Set the start command:
+    - $ gunicorn core.wsgi:application
 
-```bash
-pip install gunicorn dj-database-url psycopg2-binary whitenoise
-```
-
-3. Create a Procfile in the root directory:
-
-```bash
-web: gunicorn velora_jewelry.wsgi:application
-```
-
-4. Update settings.py:
-
-```python
-    ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
-```
-
-5. Configure database:
-
-```python
-    import os
-    import dj_database_url
-    from decouple import config
-
-    DATABASES = {
-        'default': dj_database_url.parse(config(os.environ.get('DATABASE_URL')))
-    }
-```
-
-Database configuration uses environment variables for secure production deployment.
-
-6. Configure static files using WhiteNoise
-7. Commit and push to GitHub (auto deploy enabled on Heroku)
-8. Run migrations:
+6. Update ALLOWED_HOSTS to include your Render domain.
+7. Run database migrations:
 
 ```bash
 python manage.py migrate
 ```
 
-9. Create a superuser:
+1. Create a superuser (if required):
 
 ```bash
 python manage.py createsuperuser
+```
+
+1. If deploying to a new database, load the product fixture:
+
+```bash
+    python manage.py loaddata products.json
 ```
 
 **Summary**
